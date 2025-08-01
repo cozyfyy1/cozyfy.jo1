@@ -1,247 +1,242 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cozyfy</title>
   <style>
-    /* Reset */
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
     }
-
     body {
-      background: #1a1a1a;
+      background: #0d0d0d;
       color: #eee;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
     }
-
     header {
-      background: #121212;
+      padding: 40px 20px 20px;
       text-align: center;
-      padding: 50px 20px 20px;
-      border-bottom: 2px solid #ff4b2b;
+      border-bottom: 2px solid #1f1f1f;
     }
-
     header h1 {
-      font-size: 48px;
-      color: #ff4b2b;
-      margin-bottom: 25px;
-      letter-spacing: 2px;
-      font-weight: 900;
-      font-family: 'Courier New', Courier, monospace;
+      font-size: 3rem;
+      color: #ff6f61;
+      margin-bottom: 20px;
     }
-
-    .categories {
+    nav.categories {
       display: flex;
       justify-content: center;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 30px;
     }
-
-    .categories a {
-      background-color: #ff4b2b;
-      color: white;
-      padding: 14px 28px;
-      text-decoration: none;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 4px 6px rgba(255,75,43,0.5);
-      transition: background 0.3s ease, transform 0.2s ease;
-      user-select: none;
+    nav.categories button {
+      background: #222;
+      border: 1px solid #ff6f61;
+      color: #ff6f61;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-
-    .categories a:hover {
-      background-color: #ff3110;
-      transform: scale(1.05);
+    nav.categories button:hover,
+    nav.categories button.active {
+      background: #ff6f61;
+      color: black;
     }
-
     main {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 40px 20px;
-      background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    section.product-section {
+      display: none;
       text-align: center;
     }
-
-    main p {
-      font-size: 24px;
-      max-width: 600px;
-      margin-bottom: 35px;
-      color: #ccc;
-      line-height: 1.5;
-      font-weight: 500;
+    section.product-section.active {
+      display: block;
     }
-
-    .btn {
-      background-color: #ff4b2b;
-      color: white;
-      padding: 14px 35px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 20px;
-      border-radius: 40px;
-      box-shadow: 0 6px 8px rgba(255,75,43,0.7);
-      transition: background 0.3s ease, transform 0.2s ease;
-      user-select: none;
+    section.product-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff6f61;
     }
-
-    .btn:hover {
-      background-color: #ff3110;
-      transform: scale(1.1);
+    section.product-section p {
+      font-size: 18px;
+      color: #bbb;
+      margin-bottom: 40px;
     }
-
     footer {
-      background-color: #121212;
-      color: #888;
+      background: #111;
+      color: #eee;
+      padding: 30px 20px;
       text-align: center;
-      padding: 35px 20px 25px;
-      border-top: 2px solid #ff4b2b;
     }
-
     .bottom-nav {
       display: flex;
       justify-content: center;
-      gap: 50px;
-      margin-bottom: 20px;
+      gap: 30px;
       flex-wrap: wrap;
+      margin-bottom: 15px;
     }
-
-    .bottom-nav a {
-      color: #ff4b2b;
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: #ff6f61;
+      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      text-decoration: none;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: color 0.3s ease;
-      user-select: none;
+      transition: text-decoration 0.3s ease;
     }
-
-    .bottom-nav a:hover {
-      color: #ff3110;
+    .bottom-nav button:hover {
+      text-decoration: underline;
     }
-
-    .info-text {
-      max-width: 800px;
-      margin: 0 auto 15px;
-      font-size: 16px;
-      color: #bbb;
-      line-height: 1.6;
-      padding: 0 15px;
+    .content-box {
       display: none;
-      user-select: text;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      font-size: 15px;
+      color: #ccc;
+      line-height: 1.5;
     }
-
-    footer p {
-      font-size: 14px;
-      color: #555;
-      margin-top: 5px;
+    .content-box.active {
+      display: block;
+    }
+    a.back-home {
+      display: inline-block;
+      margin-top: 30px;
+      color: #ff6f61;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #ff6f61;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+    }
+    a.back-home:hover {
+      background: #ff6f61;
+      color: black;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Cozyfy</h1>
-    <div class="categories">
-      <a href="tshirts.html">T-Shirts</a>
-      <a href="hoodies.html">Hoodies</a>
-      <a href="pants.html">Pants</a>
-      <a href="accessories.html">Accessories</a>
-    </div>
+    <h1>Welcome to Cozyfy</h1>
+    <nav class="categories" aria-label="Product categories">
+      <button class="category-btn active" data-section="tshirts">T-Shirts</button>
+      <button class="category-btn" data-section="hoodies">Hoodies</button>
+      <button class="category-btn" data-section="pants">Pants</button>
+      <button class="category-btn" data-section="accessories">Accessories</button>
+    </nav>
   </header>
 
   <main>
-    <p>Your style starts here. Cozy & trendy streetwear for everyone.</p>
-    <a href="shopping.html" class="btn">Shop Now</a>
+    <section id="tshirts" class="product-section active" aria-label="T-Shirts products">
+      <h2>Cozyfy T-Shirts</h2>
+      <p>Upload your T-shirts here: product images, sizes, prices, and descriptions.</p>
+      <a href="#!" class="back-home" onclick="resetCategory()">Back to categories</a>
+    </section>
+
+    <section id="hoodies" class="product-section" aria-label="Hoodies products">
+      <h2>Cozyfy Hoodies</h2>
+      <p>Upload your hoodie drops with styles, fits, colors, and prices.</p>
+      <a href="#!" class="back-home" onclick="resetCategory()">Back to categories</a>
+    </section>
+
+    <section id="pants" class="product-section" aria-label="Pants products">
+      <h2>Cozyfy Pants</h2>
+      <p>Upload your joggers, cargos, and streetwear pants here.</p>
+      <a href="#!" class="back-home" onclick="resetCategory()">Back to categories</a>
+    </section>
+
+    <section id="accessories" class="product-section" aria-label="Accessories products">
+      <h2>Cozyfy Accessories</h2>
+      <p>Add your caps, bags, and extra streetwear accessories.</p>
+      <a href="#!" class="back-home" onclick="resetCategory()">Back to categories</a>
+    </section>
   </main>
 
   <footer>
-    <nav class="bottom-nav">
-      <a id="home-link">Home</a>
-      <a id="about-link">About Us</a>
-      <a id="shopping-link">Shopping</a>
-      <a id="contact-link">Contact Us</a>
+    <nav class="bottom-nav" aria-label="Footer navigation">
+      <button onclick="toggleContent('about')">About Us</button>
+      <button onclick="toggleContent('shop')">Shopping</button>
+      <button onclick="toggleContent('contact')">Contact Us</button>
     </nav>
 
-    <div id="about-text" class="info-text">
-      Welcome to Cozyfy.jo — where comfort meets style. We’re passionate about delivering cozy, high-quality apparel that captures your personal vibe. From our latest hoodies and t-shirts to stylish accessories, every piece is made to keep you feeling confident and comfortable. Based in Jordan, Cozyfy.jo is all about local pride and global inspiration. DM us to explore the collection, ask questions, or place your order — we’re here for you. Enjoy shopping in the coziest way possible.
+    <div id="about" class="content-box">
+      Welcome to Cozyfy.jo — where comfort meets street. Based in Jordan, our mission is to bring local flavor with global vibes. Each piece is designed to keep you bold, confident, and comfortable.
     </div>
 
-    <div id="shopping-text" class="info-text">
-      Discover the freshest streetwear styles with our exclusive collections of T-Shirts, Hoodies, Pants, and Accessories. Everything is designed to keep you on trend and comfortable all day long. Stay tuned for new arrivals!
+    <div id="shop" class="content-box">
+      Browse our collection of bold hoodies, essential tees, cargo pants, and fresh accessories — curated for real streetwear lovers.
     </div>
 
-    <div id="contact-text" class="info-text">
-      Have questions? Reach out to us at:<br />
-      Phone: +962770212121 / +962795152041<br />
-      Instagram: <a href="https://instagram.com/cozyfy.jo" target="_blank" style="color:#ff4b2b;">@cozyfy.jo</a><br />
-      Email: info@cozyfy.jo
+    <div id="contact" class="content-box">
+      Contact us on WhatsApp: +962770212121 / +962795152041 or DM us on Instagram @cozyfy.jo
     </div>
 
-    <footer>
-      <p>© 2025 Cozyfy. All rights reserved.</p>
-    </footer>
+    <p>© 2025 Cozyfy. All rights reserved.</p>
   </footer>
 
-<script>
-  const aboutLink = document.getElementById('about-link');
-  const shoppingLink = document.getElementById('shopping-link');
-  const contactLink = document.getElementById('contact-link');
-  const homeLink = document.getElementById('home-link');
+  <script>
+    const buttons = document.querySelectorAll('.category-btn');
+    const sections = document.querySelectorAll('.product-section');
 
-  const aboutText = document.getElementById('about-text');
-  const shoppingText = document.getElementById('shopping-text');
-  const contactText = document.getElementById('contact-text');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active from all buttons
+        buttons.forEach(btn => btn.classList.remove('active'));
+        // Add active to clicked button
+        button.classList.add('active');
 
-  function hideAll() {
-    aboutText.style.display = 'none';
-    shoppingText.style.display = 'none';
-    contactText.style.display = 'none';
-  }
+        // Show corresponding section and hide others
+        const target = button.getAttribute('data-section');
+        sections.forEach(section => {
+          if(section.id === target) {
+            section.classList.add('active');
+          } else {
+            section.classList.remove('active');
+          }
+        });
 
-  aboutLink.addEventListener('click', () => {
-    if (aboutText.style.display === 'block') {
-      aboutText.style.display = 'none';
-    } else {
-      hideAll();
-      aboutText.style.display = 'block';
+        // Hide all content boxes on product change
+        hideAllContentBoxes();
+      });
+    });
+
+    function toggleContent(id) {
+      const box = document.getElementById(id);
+      if (box.classList.contains('active')) {
+        box.classList.remove('active');
+      } else {
+        hideAllContentBoxes();
+        box.classList.add('active');
+      }
     }
-  });
 
-  shoppingLink.addEventListener('click', () => {
-    if (shoppingText.style.display === 'block') {
-      shoppingText.style.display = 'none';
-    } else {
-      hideAll();
-      shoppingText.style.display = 'block';
+    function hideAllContentBoxes() {
+      document.querySelectorAll('.content-box').forEach(box => {
+        box.classList.remove('active');
+      });
     }
-  });
 
-  contactLink.addEventListener('click', () => {
-    if (contactText.style.display === 'block') {
-      contactText.style.display = 'none';
-    } else {
-      hideAll();
-      contactText.style.display = 'block';
+    function resetCategory() {
+      // Remove active from all buttons
+      buttons.forEach(btn => btn.classList.remove('active'));
+      // Remove active from all sections
+      sections.forEach(sec => sec.classList.remove('active'));
+      // Show all categories (reset state) - Here we could reset to homepage or categories but since everything is on same page, let's show T-shirts by default
+      buttons[0].classList.add('active');
+      sections[0].classList.add('active');
     }
-  });
-
-  homeLink.addEventListener('click', () => {
-    hideAll();
-  });
-</script>
+  </script>
 
 </body>
 </html>
