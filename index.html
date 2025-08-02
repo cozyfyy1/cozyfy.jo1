@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cozyfy - Streetwear Vibes</title>
   <style>
-    /* Reset */
     * {
       margin: 0;
       padding: 0;
@@ -22,17 +21,17 @@
     }
 
     header {
-      background: #4b0082; /* Purple */
+      background: #1f1f1f;
       text-align: center;
       padding: 50px 20px 30px;
-      border-bottom: 3px solid #ff6600; /* Orange */
-      box-shadow: 0 0 15px #ff6600;
+      border-bottom: 3px solid #ff6600;
+      box-shadow: 0 0 15px #aa00ff;
     }
 
     header h1 {
       font-size: 48px;
       color: #ff6600;
-      text-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600;
+      text-shadow: 0 0 8px #ff6600, 0 0 20px #aa00ff;
       margin-bottom: 25px;
       letter-spacing: 4px;
       font-weight: 900;
@@ -46,33 +45,32 @@
     }
 
     .categories a {
-      background: #ff6600; /* Orange */
-      color: #4b0082; /* Purple */
+      background: #aa00ff;
+      color: #121212;
       padding: 14px 30px;
       text-decoration: none;
       border-radius: 30px;
       font-weight: 700;
       font-size: 18px;
-      box-shadow: 0 0 5px #ff6600, 0 0 15px #ff6600, 0 0 20px #ff6600;
+      box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff, 0 0 20px #aa00ff;
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      cursor: pointer;
     }
 
     .categories a:hover {
-      background: #4b0082;
-      color: #ff6600;
-      box-shadow: 0 0 8px #4b0082, 0 0 20px #4b0082, 0 0 30px #4b0082;
+      background: #ff6600;
+      color: #fff;
+      box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600;
       transform: scale(1.1);
     }
 
     main {
       flex: 1;
-      background: linear-gradient(135deg, #4b0082, #121212);
+      background: linear-gradient(135deg, #1f1f1f, #121212);
       padding: 70px 20px;
       text-align: center;
-      box-shadow: inset 0 0 40px #ff6600;
+      box-shadow: inset 0 0 40px #aa00ff;
     }
 
     .hero p {
@@ -80,7 +78,7 @@
       max-width: 650px;
       margin: 0 auto 40px auto;
       color: #eee;
-      text-shadow: 0 0 6px #ff6600;
+      text-shadow: 0 0 6px #aa00ff;
       font-weight: 600;
     }
 
@@ -97,70 +95,10 @@
     }
 
     .btn:hover {
-      background-color: #4b0082;
-      color: #ff6600;
-      box-shadow: 0 0 12px #4b0082, 0 0 30px #4b0082;
+      background-color: #aa00ff;
+      color: #121212;
+      box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
       transform: scale(1.05);
-    }
-
-    footer {
-      background-color: #4b0082;
-      color: #eee;
-      text-align: center;
-      padding: 35px 20px 25px;
-      box-shadow: 0 -3px 15px #ff6600;
-    }
-
-    .bottom-nav {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .bottom-nav a {
-      color: #ff6600;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 700;
-      transition: color 0.3s ease;
-    }
-
-    .bottom-nav a:hover {
-      color: #4b0082;
-      text-shadow: 0 0 8px #4b0082;
-    }
-
-    footer p {
-      font-size: 14px;
-      color: #ddd;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-
-    .content-section {
-      max-width: 900px;
-      margin: 0 auto 40px;
-      background: #2a1a4d; /* dark purple */
-      border-radius: 12px;
-      padding: 30px 25px;
-      box-shadow: 0 0 20px #ff6600aa;
-      color: #ddd;
-      font-size: 18px;
-      display: none;
-      line-height: 1.5;
-      text-align: left;
-    }
-
-    .content-section.active {
-      display: block;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(15px);}
-      to {opacity: 1; transform: translateY(0);}
     }
 
     .product-grid {
@@ -172,72 +110,54 @@
     }
 
     .product-card {
-      background: #3d2a6a; /* purple */
-      border: 2px solid #ff6600; /* orange border */
+      background: #1a1a1a;
+      border: 2px solid #ff6600;
       padding: 20px;
       border-radius: 15px;
       width: 250px;
       text-align: left;
-      box-shadow: 0 0 10px #ff6600aa;
+      box-shadow:
+        0 0 12px #ff660088,
+        0 0 18px #aa00ff66,
+        inset 0 0 10px #000;
+      transition: 0.3s ease;
       cursor: pointer;
-      transition: box-shadow 0.3s ease;
-      position: relative;
-      user-select: none;
     }
 
     .product-card:hover {
-      box-shadow: 0 0 20px #ff6600ff;
+      box-shadow:
+        0 0 18px #ff6600,
+        0 0 24px #aa00ff,
+        inset 0 0 12px #fff;
+      transform: scale(1.03);
     }
 
     .product-card img {
       width: 100%;
       border-radius: 10px;
       margin-bottom: 10px;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .product-card label {
-      display: block;
-      margin-top: 10px;
-      font-weight: 600;
-      color: #ffcc99;
+      background: #fff;
+      box-shadow: 0 0 15px #ffffffcc;
     }
 
     .product-card select {
       width: 100%;
-      margin-top: 6px;
-      padding: 6px;
+      margin-top: 8px;
+      padding: 5px;
       border-radius: 5px;
-      background: #4b0082;
+      background: #333;
       color: #fff;
-      border: 1px solid #ff6600;
-      font-weight: 700;
-      cursor: pointer;
+      border: 1px solid #555;
     }
 
     .product-price {
-      margin-top: 12px;
-      font-weight: 900;
-      color: #ff6600;
-      font-size: 20px;
-      text-align: center;
-      user-select: none;
-    }
-
-    /* Hide options by default, show only when card is active */
-    .product-options {
-      display: none;
       margin-top: 10px;
-    }
-
-    .product-card.active .product-options {
-      display: block;
+      font-weight: bold;
+      color: #aa00ff;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Welcome to Cozyfy</h1>
     <div class="categories">
@@ -253,219 +173,102 @@
       <a href="#" class="btn">Shop Now</a>
     </section>
 
-    <!-- T-Shirts Section -->
-    <section id="tshirts" class="content-section active">
+    <section id="tshirts" class="content-section">
       <h2>T-Shirts</h2>
       <div class="product-grid">
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=T-Shirt+1" alt="T-Shirt 1" />
-          <div class="product-options">
-            <label for="tshirt1-color">Color:</label>
-            <select id="tshirt1-color" class="color-select">
-              <option>Black</option>
-              <option>White</option>
-              <option>Pink</option>
-            </select>
-            <label for="tshirt1-size">Size:</label>
-            <select id="tshirt1-size" class="size-select" data-baseprice="15">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
-          <div class="product-price">Price: <span>15</span> JOD</div>
-        </div>
-
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=T-Shirt+2" alt="T-Shirt 2" />
-          <div class="product-options">
-            <label>Color:</label>
-            <select class="color-select">
-              <option>Red</option>
-              <option>Blue</option>
-              <option>Green</option>
-            </select>
-            <label>Size:</label>
-            <select class="size-select" data-baseprice="15">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
+        <div class="product-card">
+          <img src="images/tshirt1.jpg" alt="T-Shirt 1">
+          <label>Color:</label>
+          <select>
+            <option>Black</option>
+            <option>White</option>
+            <option>Pink</option>
+          </select>
+          <label>Size:</label>
+          <select onchange="updatePrice(this, 15)">
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">XL (+2 JOD)</option>
+            <option value="XXL">XXL (+4 JOD)</option>
+          </select>
           <div class="product-price">Price: <span>15</span> JOD</div>
         </div>
       </div>
     </section>
 
-    <!-- Hoodies Section -->
     <section id="hoodies" class="content-section">
       <h2>Hoodies</h2>
       <div class="product-grid">
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=Hoodie+1" alt="Hoodie 1" />
-          <div class="product-options">
-            <label>Color:</label>
-            <select class="color-select">
-              <option>Black</option>
-              <option>Gray</option>
-              <option>Beige</option>
-            </select>
-            <label>Size:</label>
-            <select class="size-select" data-baseprice="32">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
-          <div class="product-price">Price: <span>32</span> JOD</div>
-        </div>
-
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=Hoodie+2" alt="Hoodie 2" />
-          <div class="product-options">
-            <label>Color:</label>
-            <select class="color-select">
-              <option>Blue</option>
-              <option>White</option>
-              <option>Orange</option>
-            </select>
-            <label>Size:</label>
-            <select class="size-select" data-baseprice="32">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
+        <div class="product-card">
+          <img src="images/hoodie1.jpg" alt="Hoodie 1">
+          <label>Color:</label>
+          <select>
+            <option>Black</option>
+            <option>Gray</option>
+            <option>Beige</option>
+          </select>
+          <label>Size:</label>
+          <select onchange="updatePrice(this, 32)">
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">XL (+2 JOD)</option>
+            <option value="XXL">XXL (+4 JOD)</option>
+          </select>
           <div class="product-price">Price: <span>32</span> JOD</div>
         </div>
       </div>
     </section>
 
-    <!-- Pants Section -->
     <section id="pants" class="content-section">
       <h2>Pants</h2>
       <div class="product-grid">
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=Pants+1" alt="Pants 1" />
-          <div class="product-options">
-            <label>Color:</label>
-            <select class="color-select">
-              <option>Black</option>
-              <option>Navy</option>
-              <option>Gray</option>
-            </select>
-            <label>Size:</label>
-            <select class="size-select" data-baseprice="20">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
-          <div class="product-price">Price: <span>20</span> JOD</div>
-        </div>
-
-        <div class="product-card" tabindex="0">
-          <img src="https://via.placeholder.com/250x300?text=Pants+2" alt="Pants 2" />
-          <div class="product-options">
-            <label>Color:</label>
-            <select class="color-select">
-              <option>Beige</option>
-              <option>Brown</option>
-              <option>Dark Green</option>
-            </select>
-            <label>Size:</label>
-            <select class="size-select" data-baseprice="20">
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">XL (+2 JOD)</option>
-              <option value="XXL">XXL (+4 JOD)</option>
-            </select>
-          </div>
-          <div class="product-price">Price: <span>20</span> JOD</div>
+        <div class="product-card">
+          <img src="images/pants1.jpg" alt="Pants 1">
+          <label>Color:</label>
+          <select>
+            <option>Black</option>
+            <option>Gray</option>
+            <option>Olive</option>
+          </select>
+          <label>Size:</label>
+          <select onchange="updatePrice(this, 28)">
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">XL (+2 JOD)</option>
+            <option value="XXL">XXL (+4 JOD)</option>
+          </select>
+          <div class="product-price">Price: <span>28</span> JOD</div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="bottom-nav">
-      <a href="#">Terms of Use</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Cookie Policy</a>
-    </div>
-    <p>© 2024 Cozyfy. All rights reserved.</p>
-  </footer>
-
   <script>
-    // Show only the selected category section
     const categoryLinks = document.querySelectorAll('.categories a');
-    const sections = document.querySelectorAll('.content-section');
+    const categorySections = document.querySelectorAll('.content-section');
 
     categoryLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
-        const target = e.target.getAttribute('data-section');
-        sections.forEach(sec => {
-          if(sec.id === target) {
-            sec.classList.add('active');
-          } else {
-            sec.classList.remove('active');
-          }
+        const target = link.getAttribute('data-section');
+
+        categorySections.forEach(section => {
+          section.style.display = section.id === target ? 'block' : 'none';
         });
       });
     });
 
-    // Toggle product options visibility on card click
-    const productCards = document.querySelectorAll('.product-card');
-
-    productCards.forEach(card => {
-      card.addEventListener('click', e => {
-        // Avoid toggling when clicking on selects themselves
-        if (e.target.tagName.toLowerCase() === 'select') return;
-
-        card.classList.toggle('active');
-      });
-
-      // Keyboard accessibility: toggle on Enter key
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.classList.toggle('active');
-        }
-      });
-    });
-
-    // Price update based on size select
-    const sizeSelectors = document.querySelectorAll('.size-select');
-
-    sizeSelectors.forEach(select => {
-      select.addEventListener('change', e => {
-        const basePrice = parseFloat(select.dataset.baseprice);
-        let extra = 0;
-        switch (select.value) {
-          case 'XL': extra = 2; break;
-          case 'XXL': extra = 4; break;
-          default: extra = 0;
-        }
-        const newPrice = basePrice + extra;
-        const priceSpan = select.closest('.product-card').querySelector('.product-price span');
-        priceSpan.textContent = newPrice.toFixed(2);
-      });
-    });
+    function updatePrice(selectEl, basePrice) {
+      const selectedSize = selectEl.value;
+      let price = basePrice;
+      if (selectedSize === 'XL') price += 2;
+      if (selectedSize === 'XXL') price += 4;
+      const priceEl = selectEl.parentElement.querySelector('.product-price span');
+      priceEl.textContent = price;
+    }
   </script>
-
 </body>
 </html>
-</html>
-
