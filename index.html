@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cozyfy - Streetwear Vibes</title>
   <style>
     * {
@@ -175,74 +175,17 @@
 
     <section id="tshirts" class="content-section">
       <h2>T-Shirts</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <img src="images/tshirt1.jpg" alt="T-Shirt 1">
-          <label>Color:</label>
-          <select>
-            <option>Black</option>
-            <option>White</option>
-            <option>Pink</option>
-          </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 15)">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">XL (+2 JOD)</option>
-            <option value="XXL">XXL (+4 JOD)</option>
-          </select>
-          <div class="product-price">Price: <span>15</span> JOD</div>
-        </div>
-      </div>
+      <div class="product-grid" id="tshirt-grid"></div>
     </section>
 
     <section id="hoodies" class="content-section">
       <h2>Hoodies</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <img src="images/hoodie1.jpg" alt="Hoodie 1">
-          <label>Color:</label>
-          <select>
-            <option>Black</option>
-            <option>Gray</option>
-            <option>Beige</option>
-          </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 32)">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">XL (+2 JOD)</option>
-            <option value="XXL">XXL (+4 JOD)</option>
-          </select>
-          <div class="product-price">Price: <span>32</span> JOD</div>
-        </div>
-      </div>
+      <div class="product-grid" id="hoodie-grid"></div>
     </section>
 
     <section id="pants" class="content-section">
       <h2>Pants</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <img src="images/pants1.jpg" alt="Pants 1">
-          <label>Color:</label>
-          <select>
-            <option>Black</option>
-            <option>Gray</option>
-            <option>Olive</option>
-          </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 28)">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">XL (+2 JOD)</option>
-            <option value="XXL">XXL (+4 JOD)</option>
-          </select>
-          <div class="product-price">Price: <span>28</span> JOD</div>
-        </div>
-      </div>
+      <div class="product-grid" id="pants-grid"></div>
     </section>
   </main>
 
@@ -254,7 +197,6 @@
       link.addEventListener('click', e => {
         e.preventDefault();
         const target = link.getAttribute('data-section');
-
         categorySections.forEach(section => {
           section.style.display = section.id === target ? 'block' : 'none';
         });
@@ -269,6 +211,33 @@
       const priceEl = selectEl.parentElement.querySelector('.product-price span');
       priceEl.textContent = price;
     }
+
+    function createProductCard(imgSrc, basePrice, colors, id) {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${imgSrc}" alt="Product">
+        <label>Color:</label>
+        <select>${colors.map(color => `<option>${color}</option>`).join('')}</select>
+        <label>Size:</label>
+        <select onchange="updatePrice(this, ${basePrice})">
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+          <option value="XL">XL (+2 JOD)</option>
+          <option value="XXL">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: <span>${basePrice}</span> JOD</div>
+      `;
+      document.getElementById(id).appendChild(card);
+    }
+
+    createProductCard('images/tshirt1.jpg', 15, ['Black', 'White', 'Pink'], 'tshirt-grid');
+    createProductCard('images/tshirt2.jpg', 15, ['Blue', 'Green', 'White'], 'tshirt-grid');
+    createProductCard('images/hoodie1.jpg', 32, ['Black', 'Gray', 'Beige'], 'hoodie-grid');
+    createProductCard('images/hoodie2.jpg', 32, ['Red', 'White', 'Olive'], 'hoodie-grid');
+    createProductCard('images/pants1.jpg', 28, ['Black', 'Gray', 'Olive'], 'pants-grid');
+    createProductCard('images/pants2.jpg', 28, ['Khaki', 'Blue', 'Beige'], 'pants-grid');
   </script>
 </body>
 </html>
