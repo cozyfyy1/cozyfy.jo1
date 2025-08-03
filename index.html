@@ -5,40 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cozyfy - Streetwear Vibes</title>
   <style>
-    /* Reset & base */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
+
     body {
       background: #121212;
       color: #eee;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 240px; /* For footer */
-    }
-    a {
-      color: #ff6600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #aa00ff;
+      min-height: 100vh;
     }
 
-    /* Header */
     header {
       background: #1f1f1f;
       text-align: center;
       padding: 50px 20px 30px;
       border-bottom: 3px solid #ff6600;
       box-shadow: 0 0 15px #aa00ff;
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      border-radius: 0 0 30px 30px;
     }
+
     header h1 {
       font-size: 48px;
       color: #ff6600;
@@ -47,26 +37,28 @@
       letter-spacing: 4px;
       font-weight: 900;
     }
+
     .categories {
       display: flex;
       justify-content: center;
-      gap: 20px;
       flex-wrap: wrap;
-      margin-bottom: 10px;
+      gap: 20px;
     }
+
     .categories a {
       background: #aa00ff;
       color: #121212;
       padding: 14px 30px;
+      text-decoration: none;
       border-radius: 30px;
       font-weight: 700;
       font-size: 18px;
       box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff, 0 0 20px #aa00ff;
+      transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      user-select: none;
     }
-    .categories a.active,
+
     .categories a:hover {
       background: #ff6600;
       color: #fff;
@@ -74,732 +66,644 @@
       transform: scale(1.1);
     }
 
-    /* Main container */
     main {
       flex: 1;
       background: linear-gradient(135deg, #1f1f1f, #121212);
-      padding: 40px 20px 20px;
+      padding: 70px 20px;
+      text-align: center;
       box-shadow: inset 0 0 40px #aa00ff;
-      min-height: 500px;
-      max-width: 1200px;
-      margin: 0 auto;
+      border-radius: 30px 30px 0 0;
+      margin-bottom: 20px;
     }
 
-    /* Product grid */
+    .hero p {
+      font-size: 26px;
+      max-width: 650px;
+      margin: 0 auto 40px auto;
+      color: #eee;
+      text-shadow: 0 0 6px #aa00ff;
+      font-weight: 600;
+    }
+
+    .btn, .checkout-btn {
+      background-color: #ff6600;
+      color: white;
+      padding: 15px 40px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 20px;
+      border-radius: 50px;
+      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover, .checkout-btn:hover {
+      background-color: #aa00ff;
+      color: #121212;
+      box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
+      transform: scale(1.05);
+    }
+
     .product-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
+      margin-top: 30px;
       justify-content: center;
     }
 
-    /* Product card */
     .product-card {
       background: #1a1a1a;
-      border-radius: 15px;
-      width: 260px;
-      padding: 15px;
-      border: 3px solid transparent;
+      border: 2px solid #ff6600;
+      padding: 20px;
+      border-radius: 30px;
+      width: 250px;
       text-align: left;
       box-shadow:
         0 0 12px #ff660088,
         0 0 18px #aa00ff66,
         inset 0 0 10px #000;
-      cursor: pointer;
       transition: 0.3s ease;
-      position: relative;
-      display: flex;
-      flex-direction: column;
+      cursor: pointer;
     }
+
     .product-card:hover {
       box-shadow:
         0 0 18px #ff6600,
         0 0 24px #aa00ff,
         inset 0 0 12px #fff;
-      transform: scale(1.04);
+      transform: scale(1.03);
     }
+
     .product-card img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
       background: #fff;
       box-shadow: 0 0 15px #ffffffcc;
-      object-fit: cover;
-      height: 260px;
-      border: 5px solid transparent; /* Border to be changed dynamically */
-      transition: border-color 0.3s ease;
     }
 
-    /* Border style options below each image */
-    .borders-container {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: center;
-    }
-    .border-option {
-      width: 22px;
-      height: 22px;
-      border-radius: 4px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      box-shadow: 0 0 3px #222 inset;
-      transition: border-color 0.3s ease;
-    }
-    .border-option:hover,
-    .border-option.selected {
-      border-color: #ff6600;
-      box-shadow:
-        0 0 5px #ff6600,
-        0 0 10px #aa00ff;
-    }
-
-    /* Color border options */
-    .border1 { border-color: #ff6600; }
-    .border2 { border-color: #aa00ff; }
-    .border3 { border-color: #00ffaa; }
-    .border4 { border-color: #ffaa00; }
-    .border5 { border-color: #ff00aa; }
-    .border6 { border-color: #00aaff; }
-    .border7 { border-color: #aa00ff; }
-    .border8 { border-color: #ffaa00; }
-    .border9 { border-color: #ffaa00; }
-    .border10 { border-color: #aaff00; }
-
-    /* Product info */
-    .product-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #ff6600;
-      margin-top: 12px;
-      margin-bottom: 6px;
-      letter-spacing: 1.2px;
-      user-select: none;
-    }
-    .product-price {
-      font-weight: 700;
-      color: #aa00ff;
-      margin-bottom: 8px;
-      user-select: none;
-    }
-
-    /* Size selector */
-    select.size-select {
+    .product-card select {
       width: 100%;
-      padding: 6px 8px;
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 15px;
       background: #333;
       color: #fff;
-      border-radius: 6px;
       border: 1px solid #555;
-      margin-bottom: 10px;
-      font-weight: 600;
+      font-size: 16px;
     }
 
-    /* Add to cart button */
-    button.add-cart-btn {
+    .product-price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #aa00ff;
+      font-size: 18px;
+    }
+
+    /* Checkout Button in Top Right Corner */
+    #checkout-button-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      text-align: right;
+    }
+
+    /* Cart below Checkout */
+    #cart-container {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background: #1f1f1f;
+      border: 2px solid #ff6600;
+      border-radius: 30px;
+      box-shadow: 0 0 15px #aa00ff;
+      overflow-y: auto;
+      padding: 20px;
+      display: none;
+      z-index: 1000;
+    }
+
+    #cart-container h3 {
+      color: #ff6600;
+      margin-bottom: 15px;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #cart-items li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #555;
+      padding-bottom: 10px;
+      color: #eee;
+    }
+
+    /* Checkout Section */
+    #checkout {
+      position: fixed;
+      top: 500px;
+      right: 20px;
+      width: 350px;
+      background: #1f1f1f;
+      border: 2px solid #ff6600;
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 0 0 25px #aa00ff;
+      display: none;
+      z-index: 1000;
+    }
+
+    #checkout h2 {
+      color: #ff6600;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    #checkout input, #checkout select {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 15px;
+      border: 1px solid #555;
+      background: #333;
+      color: #eee;
+      font-size: 16px;
+    }
+
+    #checkout button {
+      width: 100%;
+      padding: 15px;
       background: #ff6600;
       border: none;
-      padding: 12px 0;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
       border-radius: 50px;
-      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
+      color: #121212;
+      font-weight: 800;
+      font-size: 18px;
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
+      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
+      transition: all 0.3s ease;
     }
-    button.add-cart-btn:hover {
-      background: #aa00ff;
+
+    #checkout button:hover {
+      background-color: #aa00ff;
       box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
       color: #121212;
+      transform: scale(1.05);
     }
 
-    /* Sticky Checkout & Cart */
-    #checkout-panel, #cart-panel {
-      position: fixed;
-      right: 20px;
-      background: #1f1f1f;
-      border: 3px solid #ff6600;
-      box-shadow: 0 0 15px #aa00ff;
-      border-radius: 15px;
-      padding: 20px;
-      max-width: 350px;
-      z-index: 30;
-      font-size: 14px;
-      color: #eee;
-      overflow-y: auto;
-      max-height: 400px;
-    }
-    #checkout-panel {
-      top: 20px;
-    }
-    #cart-panel {
-      top: 450px;
-    }
-    #cart-panel h3, #checkout-panel h3 {
-      color: #ff6600;
-      margin-bottom: 12px;
-      user-select: none;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-    }
-
-    /* Cart items */
-    #cart-items {
-      max-height: 250px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #555;
-      padding: 8px 0;
-      gap: 8px;
-    }
-    .cart-item-info {
-      flex: 1;
-      user-select: none;
-    }
-    .cart-item-name {
-      font-weight: 700;
-      color: #ff6600;
-      font-size: 14px;
-    }
-    .cart-item-size {
-      font-size: 12px;
-      color: #aaa;
-    }
-    .cart-item-price {
-      width: 65px;
-      text-align: right;
-      font-weight: 700;
-      color: #aa00ff;
-      user-select: none;
-    }
-    .cart-btn {
-      background: #aa00ff;
-      border: none;
-      color: #eee;
-      font-weight: 700;
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .cart-btn:hover {
-      background: #ff6600;
-    }
-    #total-price {
-      text-align: right;
-      font-weight: 900;
-      font-size: 18px;
-      margin-top: 10px;
-      color: #ff6600;
-      user-select: none;
-    }
-
-    /* Checkout form */
-    #checkout-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    #checkout-form label {
-      font-weight: 700;
-      font-size: 13px;
-      color: #ff6600;
-      user-select: none;
-    }
-    #checkout-form input, #checkout-form select {
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #555;
-      background: #222;
-      color: #eee;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    #checkout-form button {
-      background: #aa00ff;
-      border: none;
-      color: #eee;
-      padding: 12px;
-      font-weight: 700;
-      font-size: 16px;
-      border-radius: 50px;
-      margin-top: 10px;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 0 15px #aa00ff;
-      transition: background-color 0.3s ease;
-    }
-    #checkout-form button:hover {
-      background: #ff6600;
-      box-shadow: 0 0 20px #ff6600;
-      color: #121212;
-    }
-
-    /* Footer with About Us & Contact Us toggles */
-    footer {
-      background: #1f1f1f;
-      border-top: 3px solid #ff6600;
-      box-shadow: 0 0 15px #aa00ff;
-      padding: 20px;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      z-index: 20;
-      flex-wrap: wrap;
-    }
-    footer .tab {
-      cursor: pointer;
-      font-weight: 700;
-      color: #ff6600;
-      font-size: 18px;
-      user-select: none;
-      border-bottom: 2px solid transparent;
-      padding-bottom: 6px;
-      transition: border-color 0.3s ease;
-    }
-    footer .tab:hover,
-    footer .tab.active {
-      border-bottom: 2px solid #aa00ff;
-      color: #aa00ff;
-    }
-
-    /* Tab content */
-    .tab-content {
-      position: fixed;
-      bottom: 70px;
-      left: 0;
-      right: 0;
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #121212dd;
-      border: 3px solid #ff6600;
-      box-shadow: 0 0 25px #aa00ff;
-      color: #eee;
-      padding: 20px 25px;
-      border-radius: 15px;
-      font-size: 16px;
+    /* Visa and Paypal extra fields */
+    #visa-fields, #paypal-fields {
       display: none;
-      user-select: none;
-      z-index: 19;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-    .tab-content.active {
-      display: block;
     }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      main {
-        padding: 20px 15px 20px;
-      }
-      .product-card {
-        width: 45vw;
-      }
-      #checkout-panel, #cart-panel {
-        position: static;
-        max-width: none;
-        margin: 15px auto;
-        border-radius: 12px;
-      }
-      footer {
-        position: static;
-        padding: 15px 10px;
-        border-top: none;
-        box-shadow: none;
-        justify-content: center;
-        gap: 25px;
-      }
-      .tab-content {
-        position: static;
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-        max-height: none;
-        background: none;
-        padding: 0;
-        margin-bottom: 30px;
-      }
+    /* About Us and Contact Us sections */
+    #about-us, #contact-us {
+      background: #1f1f1f;
+      border: 2px solid #ff6600;
+      border-radius: 30px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 0 20px #aa00ff;
+      display: none;
+      color: #eee;
     }
+
+    #about-us p, #contact-us p {
+      margin-bottom: 10px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    /* Footer with About Us, Contact Us, Home tabs */
+    footer.footer {
+      padding: 30px;
+      text-align: center;
+      background-color: #1f1f1f;
+      border-top: 2px solid #ff6600;
+      box-shadow: 0 -5px 20px #aa00ff;
+      border-radius: 30px 30px 0 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    footer.footer a {
+      color: #ff6600;
+      text-decoration: none;
+      font-weight: 700;
+      margin: 0 12px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    footer.footer a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 <body>
+  <header>
+    <h1>Welcome to Cozyfy</h1>
+    <div class="categories">
+      <a href="#" data-section="tshirts">T-Shirts</a>
+      <a href="#" data-section="hoodies">Hoodies</a>
+      <a href="#" data-section="pants">Pants</a>
+    </div>
+  </header>
 
-<header>
-  <h1>COZYFY</h1>
-  <nav class="categories">
-    <a href="#" class="category-link active" data-cat="tshirts">T-Shirts</a>
-    <a href="#" class="category-link" data-cat="hoodies">Hoodies</a>
-    <a href="#" class="category-link" data-cat="pants">Pants</a>
-  </nav>
-</header>
+  <main>
+    <section class="hero" id="home-section">
+      <p>Your style starts here. Cozy & Trendy streetwear made just for you.</p>
+      <button class="btn" id="shop-now-btn">Shop Now</button>
+    </section>
 
-<main>
-  <div class="product-grid" id="product-grid">
-    <!-- Products will be dynamically loaded here -->
-  </div>
-</main>
+    <section id="tshirts-section" class="product-grid" style="display:none;">
+      <h2>T-Shirts</h2>
+      <!-- 10 T-Shirt product cards -->
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+1" alt="T-Shirt 1" />
+        <h3>T-Shirt 1</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+2" alt="T-Shirt 2" />
+        <h3>T-Shirt 2</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+3" alt="T-Shirt 3" />
+        <h3>T-Shirt 3</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+4" alt="T-Shirt 4" />
+        <h3>T-Shirt 4</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+5" alt="T-Shirt 5" />
+        <h3>T-Shirt 5</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+6" alt="T-Shirt 6" />
+        <h3>T-Shirt 6</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+7" alt="T-Shirt 7" />
+        <h3>T-Shirt 7</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+8" alt="T-Shirt 8" />
+        <h3>T-Shirt 8</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+9" alt="T-Shirt 9" />
+        <h3>T-Shirt 9</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card" data-category="tshirts" data-price="15">
+        <img src="https://via.placeholder.com/250x250?text=T-Shirt+10" alt="T-Shirt 10" />
+        <h3>T-Shirt 10</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 15 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+    </section>
 
-<!-- Sticky Checkout Panel -->
-<div id="checkout-panel">
-  <h3>Checkout</h3>
-  <form id="checkout-form">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" required placeholder="Your name" />
-    <label for="email">Email</label>
-    <input type="email" id="email" required placeholder="example@domain.com" />
-    <label for="phone">Phone</label>
-    <input type="tel" id="phone" required placeholder="+962770212121" />
-    <label for="address">Address</label>
-    <input type="text" id="address" required placeholder="Jordan, Amman" />
-    <label for="payment">Payment Method</label>
-    <select id="payment" required>
-      <option value="" disabled selected>Select payment</option>
-      <option value="cod">Cash on Delivery</option>
-      <option value="card">Credit/Debit Card</option>
-      <option value="paypal">PayPal</option>
-    </select>
-    <button type="submit">Place Order</button>
-  </form>
-</div>
+    <section id="hoodies-section" class="product-grid" style="display:none;">
+      <h2>Hoodies</h2>
+      <!-- 10 Hoodie product cards -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+1" alt="Hoodie 1" />
+        <h3>Hoodie 1</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Repeat Hoodie cards 9 more times with distinct images and names -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+2" alt="Hoodie 2" />
+        <h3>Hoodie 2</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 3 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+3" alt="Hoodie 3" />
+        <h3>Hoodie 3</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 4 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+4" alt="Hoodie 4" />
+        <h3>Hoodie 4</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 5 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+5" alt="Hoodie 5" />
+        <h3>Hoodie 5</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 6 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+6" alt="Hoodie 6" />
+        <h3>Hoodie 6</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 7 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+7" alt="Hoodie 7" />
+        <h3>Hoodie 7</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 8 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+8" alt="Hoodie 8" />
+        <h3>Hoodie 8</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 9 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+9" alt="Hoodie 9" />
+        <h3>Hoodie 9</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+      <!-- Hoodie 10 -->
+      <div class="product-card" data-category="hoodies" data-price="32">
+        <img src="https://via.placeholder.com/250x250?text=Hoodie+10" alt="Hoodie 10" />
+        <h3>Hoodie 10</h3>
+        <select class="size-select">
+          <option value="S" data-price="0">Small</option>
+          <option value="M" data-price="0">Medium</option>
+          <option value="L" data-price="0">Large</option>
+          <option value="XL" data-price="2">XL (+2 JOD)</option>
+          <option value="XXL" data-price="4">XXL (+4 JOD)</option>
+        </select>
+        <div class="product-price">Price: 32 JOD</div>
+        <button class="btn add-to-cart-btn">Add to Cart</button>
+      </div>
+    </section>
 
-<!-- Sticky Cart Panel -->
-<div id="cart-panel">
-  <h3>Your Cart</h3>
-  <div id="cart-items"></div>
-  <div id="total-price">Total: 0 JOD</div>
-</div>
+    <section id="checkout-section" style="display:none;">
+      <h2>Checkout</h2>
+      <p>This is the checkout section. It will not open automatically; you need to click the Checkout button to toggle its visibility.</p>
+      <div id="cart-items"></div>
+      <div id="total-price"></div>
+      <button id="place-order-btn" class="btn">Place Order</button>
+    </section>
 
-<!-- Footer with About Us and Contact Us -->
-<footer>
-  <div class="tab active" id="tab-home">Home</div>
-  <div class="tab" id="tab-about">About Us</div>
-  <div class="tab" id="tab-contact">Contact Us</div>
-</footer>
+  </main>
 
-<div id="content-home" class="tab-content active">
-  <p>Welcome to Cozyfy, your go-to streetwear brand for fresh, bold vibes and comfy fits. Shop the freshest T-shirts, Hoodies, and Pants!</p>
-</div>
-<div id="content-about" class="tab-content">
-  <p>Cozyfy is your go-to streetwear brand for fresh, bold vibes and comfy fits. Based in Amman, Jordan.</p>
-</div>
-<div id="content-contact" class="tab-content">
-  <p>
-    Email: <a href="mailto:cozyfyjo@gmail.com" style="color:#ff6600;">cozyfyjo@gmail.com</a><br />
-    Phone: +962770212121<br />
-    Address: Jordan, Amman<br />
-    Instagram: <a href="https://instagram.com/cozyfy.jo" target="_blank" rel="noopener" style="color:#ff6600;">@cozyfy.jo</a>
-  </p>
-</div>
+  <footer>
+    <p>&copy; 2025 Your Shop Name. All rights reserved.</p>
+  </footer>
 
-<script>
-  // Product Data
-  const products = {
-    tshirts: [
-      {id: 'ts1', name: 'Street Classic T-Shirt', basePrice: 15, img: 'https://i.imgur.com/3A8XXfj.png'},
-      {id: 'ts2', name: 'Urban Vibes T-Shirt', basePrice: 15, img: 'https://i.imgur.com/0bLxqX6.png'},
-      {id: 'ts3', name: 'Neon Glow Tee', basePrice: 15, img: 'https://i.imgur.com/Ed5ALyW.png'},
-      {id: 'ts4', name: 'Graffiti Style Tee', basePrice: 15, img: 'https://i.imgur.com/RN2mF7y.png'},
-      {id: 'ts5', name: 'Bold Print Tee', basePrice: 15, img: 'https://i.imgur.com/QVFtFXL.png'},
-      {id: 'ts6', name: 'Chill Logo Tee', basePrice: 15, img: 'https://i.imgur.com/1KtP1kI.png'},
-      {id: 'ts7', name: 'Black & White Tee', basePrice: 15, img: 'https://i.imgur.com/y7IowIN.png'},
-      {id: 'ts8', name: 'Retro Style Tee', basePrice: 15, img: 'https://i.imgur.com/NsE8kaJ.png'},
-      {id: 'ts9', name: 'Abstract Tee', basePrice: 15, img: 'https://i.imgur.com/JQ6zQ36.png'},
-      {id: 'ts10', name: 'Minimalist Tee', basePrice: 15, img: 'https://i.imgur.com/sQZzYvy.png'},
-    ],
-    hoodies: [
-      {id: 'hd1', name: 'Cozy Purple Hoodie', basePrice: 32, img: 'https://i.imgur.com/8oX3b6E.png'},
-      {id: 'hd2', name: 'Blackout Hoodie', basePrice: 32, img: 'https://i.imgur.com/IVrF7aE.png'},
-      {id: 'hd3', name: 'Street Runner Hoodie', basePrice: 32, img: 'https://i.imgur.com/lxA0Eme.png'},
-      {id: 'hd4', name: 'Neon Stripe Hoodie', basePrice: 32, img: 'https://i.imgur.com/LjylR9d.png'},
-      {id: 'hd5', name: 'Graffiti Hoodie', basePrice: 32, img: 'https://i.imgur.com/igjvYus.png'},
-      {id: 'hd6', name: 'Bold Logo Hoodie', basePrice: 32, img: 'https://i.imgur.com/xMdQqlq.png'},
-      {id: 'hd7', name: 'Urban Chill Hoodie', basePrice: 32, img: 'https://i.imgur.com/BB2t7Si.png'},
-      {id: 'hd8', name: 'Retro Hoodie', basePrice: 32, img: 'https://i.imgur.com/XOnBnnD.png'},
-      {id: 'hd9', name: 'Abstract Hoodie', basePrice: 32, img: 'https://i.imgur.com/FvT9zAu.png'},
-      {id: 'hd10', name: 'Minimalist Hoodie', basePrice: 32, img: 'https://i.imgur.com/Y2RkEDm.png'},
-    ],
-    pants: [
-      {id: 'pt1', name: 'Streetwear Joggers', basePrice: 20, img: 'https://i.imgur.com/qveUSXZ.png'},
-      {id: 'pt2', name: 'Classic Cargo Pants', basePrice: 20, img: 'https://i.imgur.com/Kx7lOiJ.png'},
-      {id: 'pt3', name: 'Slim Fit Pants', basePrice: 20, img: 'https://i.imgur.com/x5snDE8.png'},
-      {id: 'pt4', name: 'Retro Track Pants', basePrice: 20, img: 'https://i.imgur.com/To0uAYt.png'},
-      {id: 'pt5', name: 'Neon Stripe Pants', basePrice: 20, img: 'https://i.imgur.com/0cM1Jdo.png'},
-      {id: 'pt6', name: 'Urban Pants', basePrice: 20, img: 'https://i.imgur.com/13QCLXj.png'},
-      {id: 'pt7', name: 'Bold Cargo Pants', basePrice: 20, img: 'https://i.imgur.com/dP1Ea8J.png'},
-      {id: 'pt8', name: 'Comfort Fit Pants', basePrice: 20, img: 'https://i.imgur.com/AcJQWqX.png'},
-      {id: 'pt9', name: 'Minimalist Pants', basePrice: 20, img: 'https://i.imgur.com/n7z5nEf.png'},
-      {id: 'pt10', name: 'Chill Joggers', basePrice: 20, img: 'https://i.imgur.com/3v8hs7m.png'},
-    ]
-  };
+  <script>
+    // Product filtering logic (no changes needed here)
+    const tshirtsBtn = document.getElementById('tshirts-btn');
+    const hoodiesBtn = document.getElementById('hoodies-btn');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const tshirtsSection = document.getElementById('tshirts-section');
+    const hoodiesSection = document.getElementById('hoodies-section');
+    const checkoutSection = document.getElementById('checkout-section');
 
-  // Border styles - 10 options with colors for product borders
-  const borderColors = [
-    '#ff6600',
-    '#aa00ff',
-    '#00ffaa',
-    '#ffaa00',
-    '#ff00aa',
-    '#00aaff',
-    '#aa00ff',
-    '#ffaa00',
-    '#ffaa00',
-    '#aaff00'
-  ];
-
-  // Sizes and price increments
-  const sizeIncrements = {
-    'S': 0,
-    'M': 0,
-    'L': 0,
-    'XL': 2,
-    'XXL': 4
-  };
-
-  // Cart data
-  let cart = [];
-
-  // Current category
-  let currentCategory = 'tshirts';
-
-  // --- Helper Functions ---
-
-  // Format price with JOD and 2 decimals
-  function formatPrice(price) {
-    return price.toFixed(2) + ' JOD';
-  }
-
-  // Load products for the current category
-  function loadProducts(category) {
-    const grid = document.getElementById('product-grid');
-    grid.innerHTML = '';
-    const items = products[category];
-    items.forEach((prod, idx) => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.dataset.id = prod.id;
-
-      // Create image with first border selected
-      const img = document.createElement('img');
-      img.src = prod.img;
-      img.alt = prod.name;
-      img.style.borderColor = borderColors[0];
-
-      // Border options container
-      const borderContainer = document.createElement('div');
-      borderContainer.className = 'borders-container';
-
-      borderColors.forEach((color, bIdx) => {
-        const borderOption = document.createElement('div');
-        borderOption.className = 'border-option';
-        borderOption.style.borderColor = color;
-        if (bIdx === 0) borderOption.classList.add('selected');
-        borderOption.title = 'Border style ' + (bIdx + 1);
-        borderOption.style.backgroundColor = color;
-        borderOption.addEventListener('click', (e) => {
-          e.stopPropagation();
-          // Remove selected from siblings
-          borderContainer.querySelectorAll('.border-option').forEach(opt => opt.classList.remove('selected'));
-          borderOption.classList.add('selected');
-          img.style.borderColor = color;
-        });
-        borderContainer.appendChild(borderOption);
-      });
-
-      // Product name & price
-      const nameEl = document.createElement('div');
-      nameEl.className = 'product-name';
-      nameEl.textContent = prod.name;
-
-      const priceEl = document.createElement('div');
-      priceEl.className = 'product-price';
-      priceEl.textContent = formatPrice(prod.basePrice);
-
-      // Size selector
-      const sizeSelect = document.createElement('select');
-      sizeSelect.className = 'size-select';
-      ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
-        const option = document.createElement('option');
-        option.value = size;
-        option.textContent = size + (sizeIncrements[size] > 0 ? ` (+${sizeIncrements[size]} JOD)` : '');
-        sizeSelect.appendChild(option);
-      });
-
-      // Update price when size changes
-      sizeSelect.addEventListener('change', () => {
-        const base = prod.basePrice;
-        const incr = sizeIncrements[sizeSelect.value] || 0;
-        priceEl.textContent = formatPrice(base + incr);
-      });
-
-      // Add to cart button
-      const addBtn = document.createElement('button');
-      addBtn.className = 'add-cart-btn';
-      addBtn.textContent = 'Add to Cart';
-
-      addBtn.addEventListener('click', () => {
-        addToCart(prod, sizeSelect.value);
-      });
-
-      // Assemble card
-      card.appendChild(img);
-      card.appendChild(borderContainer);
-      card.appendChild(nameEl);
-      card.appendChild(priceEl);
-      card.appendChild(sizeSelect);
-      card.appendChild(addBtn);
-
-      grid.appendChild(card);
+    tshirtsBtn.addEventListener('click', () => {
+      tshirtsSection.style.display = 'grid';
+      hoodiesSection.style.display = 'none';
+      checkoutSection.style.display = 'none';
     });
-  }
 
-  // Add product to cart
-  function addToCart(product, size) {
-    // Check if item already in cart with same size
-    const existingIndex = cart.findIndex(
-      item => item.id === product.id && item.size === size
-    );
-    if (existingIndex > -1) {
-      cart[existingIndex].qty++;
-    } else {
-      cart.push({
-        id: product.id,
-        name: product.name,
-        basePrice: product.basePrice,
-        size: size,
-        qty: 1
-      });
-    }
-    updateCartUI();
-  }
+    hoodiesBtn.addEventListener('click', () => {
+      hoodiesSection.style.display = 'grid';
+      tshirtsSection.style.display = 'none';
+      checkoutSection.style.display = 'none';
+    });
 
-  // Remove or reduce quantity from cart
-  function removeFromCart(id, size) {
-    const idx = cart.findIndex(item => item.id === id && item.size === size);
-    if (idx > -1) {
-      if (cart[idx].qty > 1) {
-        cart[idx].qty--;
+    checkoutBtn.addEventListener('click', () => {
+      // Toggle checkout section visibility on button click
+      if (checkoutSection.style.display === 'none' || checkoutSection.style.display === '') {
+        checkoutSection.style.display = 'block';
+        tshirtsSection.style.display = 'none';
+        hoodiesSection.style.display = 'none';
       } else {
-        cart.splice(idx, 1);
+        checkoutSection.style.display = 'none';
       }
-      updateCartUI();
-    }
-  }
-
-  // Calculate total price
-  function calculateTotal() {
-    let total = 0;
-    cart.forEach(item => {
-      const incr = sizeIncrements[item.size] || 0;
-      total += (item.basePrice + incr) * item.qty;
     });
-    return total;
-  }
 
-  // Update Cart UI
-  function updateCartUI() {
-    const container = document.getElementById('cart-items');
-    container.innerHTML = '';
-    if (cart.length === 0) {
-      container.textContent = 'Cart is empty.';
-      document.getElementById('total-price').textContent = 'Total: 0 JOD';
-      return;
-    }
-    cart.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'cart-item';
+    // Cart functionality
+    const cart = [];
+    const cartItemsDiv = document.getElementById('cart-items');
+    const totalPriceDiv = document.getElementById('total-price');
 
-      const nameSpan = document.createElement('span');
-      nameSpan.textContent = `${item.name} (${item.size}) x${item.qty}`;
-      itemDiv.appendChild(nameSpan);
-
-      const priceSpan = document.createElement('span');
-      const incr = sizeIncrements[item.size] || 0;
-      priceSpan.textContent = formatPrice((item.basePrice + incr) * item.qty);
-      itemDiv.appendChild(priceSpan);
-
-      // Remove button
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'remove-cart-btn';
-      removeBtn.textContent = '−';
-      removeBtn.addEventListener('click', () => removeFromCart(item.id, item.size));
-      itemDiv.appendChild(removeBtn);
-
-      container.appendChild(itemDiv);
-    });
-    document.getElementById('total-price').textContent = 'Total: ' + formatPrice(calculateTotal());
-  }
-
-  // Category tab switching
-  document.querySelectorAll('.category-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.querySelectorAll('.category-link').forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      currentCategory = link.dataset.cat;
-      loadProducts(currentCategory);
-    });
-  });
-
-  // Tabs in footer
-  document.querySelectorAll('footer .tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('footer .tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const id = tab.id.replace('tab-', 'content-');
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    });
-  });
-
-  // Checkout form submission
-  document.getElementById('checkout-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (cart.length === 0) {
-      alert('Your cart is empty!');
-      return;
-    }
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
-    const payment = document.getElementById('payment').value;
-
-    // Basic validation
-    if (!name || !email || !phone || !address || !payment) {
-      alert('Please fill all fields.');
-      return;
+    function updateCart() {
+      cartItemsDiv.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.textContent = `${item.name} - Size: ${item.size} - Price: ${item.price} JOD`;
+        cartItemsDiv.appendChild(itemDiv);
+        total += item.price;
+      });
+      totalPriceDiv.textContent = `Total Price: ${total} JOD`;
     }
 
-    // Simulate order processing
-    alert(`Thank you for your order, ${name}! Total: ${formatPrice(calculateTotal())}`);
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const productCard = button.closest('.product-card');
+        const productName = productCard.querySelector('h3').textContent;
+        const sizeSelect = productCard.querySelector('.size-select');
+        const selectedSize = sizeSelect.value;
+        const sizePrice = parseFloat(sizeSelect.selectedOptions[0].dataset.price);
+        const basePrice = parseFloat(productCard.dataset.price);
+        const finalPrice = basePrice + sizePrice;
 
-    // Clear cart and form
-    cart = [];
-    updateCartUI();
-    document.getElementById('checkout-form').reset();
-  });
+        cart.push({
+          name: productName,
+          size: selectedSize,
+          price: finalPrice
+        });
+        updateCart();
+        alert(`${productName} (${selectedSize}) added to cart.`);
+      });
+    });
 
-  // Initial load
-  loadProducts(currentCategory);
-  updateCartUI();
-</script>
+    document.getElementById('place-order-btn').addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your cart is empty.');
+      } else {
+        alert('Order placed successfully!');
+        cart.length = 0;
+        updateCart();
+        checkoutSection.style.display = 'none';
+        tshirtsSection.style.display = 'grid';
+      }
+    });
+  </script>
 
 </body>
 </html>
