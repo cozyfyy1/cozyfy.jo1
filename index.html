@@ -1,730 +1,807 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cozyfy - Streetwear Vibes</title>
-<style>
-  /* Reset & basics */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-  body {
-    background: #121212;
-    color: #eee;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-  }
-  a {
-    color: #ff6600;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  header {
-    background: #1f1f1f;
-    padding: 30px 20px;
-    text-align: center;
-    border-bottom: 3px solid #ff6600;
-    box-shadow: 0 0 15px #aa00ff;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  header h1 {
-    font-size: 48px;
-    color: #ff6600;
-    text-shadow: 0 0 8px #ff6600, 0 0 20px #aa00ff;
-    letter-spacing: 4px;
-    font-weight: 900;
-    margin-bottom: 15px;
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  nav button {
-    background: #aa00ff;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 18px;
-    color: #121212;
-    cursor: pointer;
-    box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: all 0.3s ease;
-  }
-  nav button:hover, nav button.active {
-    background: #ff6600;
-    color: #fff;
-    box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600;
-    transform: scale(1.1);
-  }
-  main {
-    flex: 1;
-    background: linear-gradient(135deg, #1f1f1f, #121212);
-    padding: 40px 20px;
-    box-shadow: inset 0 0 40px #aa00ff;
-    max-width: 1100px;
-    margin: auto;
-  }
-  section {
-    display: none;
-  }
-  section.active {
-    display: block;
-  }
-
-  /* Home */
-  #home p {
-    font-size: 26px;
-    max-width: 650px;
-    margin: 0 auto 40px auto;
-    color: #eee;
-    text-shadow: 0 0 6px #aa00ff;
-    font-weight: 600;
-  }
-  #home .btn-shop {
-    background-color: #ff6600;
-    color: white;
-    padding: 15px 40px;
-    font-weight: 800;
-    font-size: 20px;
-    border-radius: 50px;
-    box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
-    cursor: pointer;
-    display: inline-block;
-    text-transform: uppercase;
-  }
-  #home .btn-shop:hover {
-    background-color: #aa00ff;
-    box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
-    color: #121212;
-  }
-
-  /* Product grids */
-  .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  .product-card {
-    background: #1a1a1a;
-    border: 2px solid #ff6600;
-    padding: 20px;
-    border-radius: 15px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 0 12px #ff660088, 0 0 18px #aa00ff66, inset 0 0 10px #000;
-    transition: 0.3s ease;
-  }
-  .product-card:hover {
-    box-shadow: 0 0 18px #ff6600, 0 0 24px #aa00ff, inset 0 0 12px #fff;
-    transform: scale(1.03);
-  }
-  .product-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    background: #fff;
-    box-shadow: 0 0 15px #ffffffcc;
-  }
-  .product-card select {
-    width: 100%;
-    margin-top: 10px;
-    padding: 7px;
-    border-radius: 5px;
-    background: #333;
-    color: #fff;
-    border: 1px solid #555;
-  }
-  .product-price {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #aa00ff;
-  }
-  .add-to-cart-btn {
-    margin-top: 15px;
-    background: #ff6600;
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    font-weight: 800;
-    font-size: 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff6600;
-    transition: all 0.3s ease;
-  }
-  .add-to-cart-btn:hover {
-    background: #aa00ff;
-    box-shadow: 0 0 12px #aa00ff;
-    color: #121212;
-  }
-
-  /* Cart Section */
-  #cart-section {
-    max-width: 700px;
-    margin: auto;
-  }
-  #cart-items {
-    margin-bottom: 20px;
-  }
-  .cart-item {
-    background: #222;
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: inset 0 0 10px #aa00ff99;
-  }
-  .cart-item-info {
-    flex: 1;
-  }
-  .cart-item-name {
-    font-weight: 700;
-    color: #ff6600;
-  }
-  .cart-item-size {
-    font-style: italic;
-    font-size: 14px;
-    color: #ccc;
-  }
-  .cart-item-qty {
-    margin: 0 15px;
-    min-width: 50px;
-    text-align: center;
-  }
-  .cart-item-price {
-    font-weight: 700;
-    color: #aa00ff;
-  }
-  .cart-btn {
-    background: #e53935;
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  .cart-btn:hover {
-    background: #ff4444;
-  }
-  #cart-total {
-    font-size: 20px;
-    font-weight: 900;
-    text-align: right;
-    margin-top: 10px;
-    color: #ff6600;
-  }
-
-  /* Checkout Section */
-  #checkout-section {
-    max-width: 500px;
-    margin: auto;
-  }
-  #checkout-form {
-    display: flex;
-    flex-direction: column;
-  }
-  #checkout-form label {
-    margin: 15px 0 6px 0;
-    font-weight: 700;
-  }
-  #checkout-form input, #checkout-form select {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    background: #222;
-    color: #eee;
-    font-size: 16px;
-  }
-  #checkout-form input::placeholder {
-    color: #999;
-  }
-  #checkout-form button {
-    margin-top: 25px;
-    background: #ff6600;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 50px;
-    font-weight: 900;
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff6600;
-    transition: all 0.3s ease;
-  }
-  #checkout-form button:hover {
-    background: #aa00ff;
-    box-shadow: 0 0 15px #aa00ff;
-    color: #121212;
-  }
-
-  /* About Us and Contact Us Tabs */
-  #about-contact-tabs {
-    max-width: 700px;
-    margin: auto;
-    margin-bottom: 40px;
-  }
-  #about-contact-tabs button {
-    background: #aa00ff;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 18px;
-    color: #121212;
-    cursor: pointer;
-    box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-right: 10px;
-    transition: all 0.3s ease;
-  }
-  #about-contact-tabs button.active {
-    background: #ff6600;
-    color: #fff;
-    box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600;
-    transform: scale(1.05);
-  }
-  #about-contact-content > div {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #aa00ff88;
-    color: #eee;
-    font-size: 18px;
-    line-height: 1.6;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    nav {
-      gap: 10px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cozyfy - Streetwear Vibes</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-    nav button {
-      padding: 8px 15px;
+    body {
+      background: #121212;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 240px; /* For footer */
+    }
+    a {
+      color: #ff6600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #aa00ff;
+    }
+
+    /* Header */
+    header {
+      background: #1f1f1f;
+      text-align: center;
+      padding: 50px 20px 30px;
+      border-bottom: 3px solid #ff6600;
+      box-shadow: 0 0 15px #aa00ff;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    header h1 {
+      font-size: 48px;
+      color: #ff6600;
+      text-shadow: 0 0 8px #ff6600, 0 0 20px #aa00ff;
+      margin-bottom: 25px;
+      letter-spacing: 4px;
+      font-weight: 900;
+    }
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .categories a {
+      background: #aa00ff;
+      color: #121212;
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff, 0 0 20px #aa00ff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      user-select: none;
+    }
+    .categories a.active,
+    .categories a:hover {
+      background: #ff6600;
+      color: #fff;
+      box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600;
+      transform: scale(1.1);
+    }
+
+    /* Main container */
+    main {
+      flex: 1;
+      background: linear-gradient(135deg, #1f1f1f, #121212);
+      padding: 40px 20px 20px;
+      box-shadow: inset 0 0 40px #aa00ff;
+      min-height: 500px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* Product card */
+    .product-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      width: 260px;
+      padding: 15px;
+      border: 3px solid transparent;
+      text-align: left;
+      box-shadow:
+        0 0 12px #ff660088,
+        0 0 18px #aa00ff66,
+        inset 0 0 10px #000;
+      cursor: pointer;
+      transition: 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      box-shadow:
+        0 0 18px #ff6600,
+        0 0 24px #aa00ff,
+        inset 0 0 12px #fff;
+      transform: scale(1.04);
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 0 15px #ffffffcc;
+      object-fit: cover;
+      height: 260px;
+      border: 5px solid transparent; /* Border to be changed dynamically */
+      transition: border-color 0.3s ease;
+    }
+
+    /* Border style options below each image */
+    .borders-container {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+    .border-option {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      box-shadow: 0 0 3px #222 inset;
+      transition: border-color 0.3s ease;
+    }
+    .border-option:hover,
+    .border-option.selected {
+      border-color: #ff6600;
+      box-shadow:
+        0 0 5px #ff6600,
+        0 0 10px #aa00ff;
+    }
+
+    /* Color border options */
+    .border1 { border-color: #ff6600; }
+    .border2 { border-color: #aa00ff; }
+    .border3 { border-color: #00ffaa; }
+    .border4 { border-color: #ffaa00; }
+    .border5 { border-color: #ff00aa; }
+    .border6 { border-color: #00aaff; }
+    .border7 { border-color: #aa00ff; }
+    .border8 { border-color: #ffaa00; }
+    .border9 { border-color: #ffaa00; }
+    .border10 { border-color: #aaff00; }
+
+    /* Product info */
+    .product-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ff6600;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      letter-spacing: 1.2px;
+      user-select: none;
+    }
+    .product-price {
+      font-weight: 700;
+      color: #aa00ff;
+      margin-bottom: 8px;
+      user-select: none;
+    }
+
+    /* Size selector */
+    select.size-select {
+      width: 100%;
+      padding: 6px 8px;
+      background: #333;
+      color: #fff;
+      border-radius: 6px;
+      border: 1px solid #555;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    /* Add to cart button */
+    button.add-cart-btn {
+      background: #ff6600;
+      border: none;
+      padding: 12px 0;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      border-radius: 50px;
+      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    button.add-cart-btn:hover {
+      background: #aa00ff;
+      box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
+      color: #121212;
+    }
+
+    /* Sticky Checkout & Cart */
+    #checkout-panel, #cart-panel {
+      position: fixed;
+      right: 20px;
+      background: #1f1f1f;
+      border: 3px solid #ff6600;
+      box-shadow: 0 0 15px #aa00ff;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 350px;
+      z-index: 30;
+      font-size: 14px;
+      color: #eee;
+      overflow-y: auto;
+      max-height: 400px;
+    }
+    #checkout-panel {
+      top: 20px;
+    }
+    #cart-panel {
+      top: 450px;
+    }
+    #cart-panel h3, #checkout-panel h3 {
+      color: #ff6600;
+      margin-bottom: 12px;
+      user-select: none;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    /* Cart items */
+    #cart-items {
+      max-height: 250px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #555;
+      padding: 8px 0;
+      gap: 8px;
+    }
+    .cart-item-info {
+      flex: 1;
+      user-select: none;
+    }
+    .cart-item-name {
+      font-weight: 700;
+      color: #ff6600;
       font-size: 14px;
     }
-    .product-card {
-      width: 100%;
+    .cart-item-size {
+      font-size: 12px;
+      color: #aaa;
     }
-  }
-</style>
+    .cart-item-price {
+      width: 65px;
+      text-align: right;
+      font-weight: 700;
+      color: #aa00ff;
+      user-select: none;
+    }
+    .cart-btn {
+      background: #aa00ff;
+      border: none;
+      color: #eee;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .cart-btn:hover {
+      background: #ff6600;
+    }
+    #total-price {
+      text-align: right;
+      font-weight: 900;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #ff6600;
+      user-select: none;
+    }
+
+    /* Checkout form */
+    #checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    #checkout-form label {
+      font-weight: 700;
+      font-size: 13px;
+      color: #ff6600;
+      user-select: none;
+    }
+    #checkout-form input, #checkout-form select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #222;
+      color: #eee;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    #checkout-form button {
+      background: #aa00ff;
+      border: none;
+      color: #eee;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 50px;
+      margin-top: 10px;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 0 15px #aa00ff;
+      transition: background-color 0.3s ease;
+    }
+    #checkout-form button:hover {
+      background: #ff6600;
+      box-shadow: 0 0 20px #ff6600;
+      color: #121212;
+    }
+
+    /* Footer with About Us & Contact Us toggles */
+    footer {
+      background: #1f1f1f;
+      border-top: 3px solid #ff6600;
+      box-shadow: 0 0 15px #aa00ff;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      z-index: 20;
+      flex-wrap: wrap;
+    }
+    footer .tab {
+      cursor: pointer;
+      font-weight: 700;
+      color: #ff6600;
+      font-size: 18px;
+      user-select: none;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 6px;
+      transition: border-color 0.3s ease;
+    }
+    footer .tab:hover,
+    footer .tab.active {
+      border-bottom: 2px solid #aa00ff;
+      color: #aa00ff;
+    }
+
+    /* Tab content */
+    .tab-content {
+      position: fixed;
+      bottom: 70px;
+      left: 0;
+      right: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #121212dd;
+      border: 3px solid #ff6600;
+      box-shadow: 0 0 25px #aa00ff;
+      color: #eee;
+      padding: 20px 25px;
+      border-radius: 15px;
+      font-size: 16px;
+      display: none;
+      user-select: none;
+      z-index: 19;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main {
+        padding: 20px 15px 20px;
+      }
+      .product-card {
+        width: 45vw;
+      }
+      #checkout-panel, #cart-panel {
+        position: static;
+        max-width: none;
+        margin: 15px auto;
+        border-radius: 12px;
+      }
+      footer {
+        position: static;
+        padding: 15px 10px;
+        border-top: none;
+        box-shadow: none;
+        justify-content: center;
+        gap: 25px;
+      }
+      .tab-content {
+        position: static;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        max-height: none;
+        background: none;
+        padding: 0;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header>
-  <h1>Cozyfy</h1>
-  <nav id="main-nav">
-    <button data-target="home" class="active">Home</button>
-    <button data-target="tshirts">T-Shirts</button>
-    <button data-target="hoodies">Hoodies</button>
-    <button data-target="pants">Pants</button>
-    <button data-target="cart">Cart (<span id="cart-count">0</span>)</button>
-    <button data-target="checkout">Checkout</button>
-    <button data-target="about-contact">About / Contact</button>
+  <h1>COZYFY</h1>
+  <nav class="categories">
+    <a href="#" class="category-link active" data-cat="tshirts">T-Shirts</a>
+    <a href="#" class="category-link" data-cat="hoodies">Hoodies</a>
+    <a href="#" class="category-link" data-cat="pants">Pants</a>
   </nav>
 </header>
 
 <main>
-  <!-- HOME -->
-  <section id="home" class="active">
-    <p>Welcome to Cozyfy, your ultimate destination for streetwear vibes. Find the freshest T-shirts, hoodies, and pants to upgrade your style.</p>
-    <button class="btn-shop" data-target="tshirts">Start Shopping</button>
-  </section>
-
-  <!-- TSHIRTS -->
-  <section id="tshirts">
-    <h2 style="text-align:center; margin-bottom: 25px; color:#ff6600; text-shadow: 0 0 6px #aa00ff;">T-Shirts</h2>
-    <div class="product-grid" id="tshirt-list"></div>
-  </section>
-
-  <!-- HOODIES -->
-  <section id="hoodies">
-    <h2 style="text-align:center; margin-bottom: 25px; color:#ff6600; text-shadow: 0 0 6px #aa00ff;">Hoodies</h2>
-    <div class="product-grid" id="hoodie-list"></div>
-  </section>
-
-  <!-- PANTS -->
-  <section id="pants">
-    <h2 style="text-align:center; margin-bottom: 25px; color:#ff6600; text-shadow: 0 0 6px #aa00ff;">Pants</h2>
-    <div class="product-grid" id="pants-list"></div>
-  </section>
-
-  <!-- CART -->
-  <section id="cart">
-    <h2 style="text-align:center; margin-bottom: 25px; color:#ff6600; text-shadow: 0 0 6px #aa00ff;">Your Cart</h2>
-    <div id="cart-section">
-      <div id="cart-items"></div>
-      <div id="cart-total">Total: $0.00</div>
-    </div>
-  </section>
-
-  <!-- CHECKOUT -->
-  <section id="checkout">
-    <h2 style="text-align:center; margin-bottom: 25px; color:#ff6600; text-shadow: 0 0 6px #aa00ff;">Checkout</h2>
-    <div id="checkout-section">
-      <form id="checkout-form">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Your full name" required />
-
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="example@mail.com" required />
-
-        <label for="address">Shipping Address</label>
-        <input type="text" id="address" placeholder="123 Street, City, Country" required />
-
-        <label for="payment-method">Payment Method</label>
-        <select id="payment-method" required>
-          <option value="" disabled selected>Select payment</option>
-          <option value="card">Credit/Debit Card</option>
-          <option value="paypal">PayPal</option>
-          <option value="cod">Cash on Delivery</option>
-        </select>
-
-        <div id="card-details" style="display:none; margin-top:10px;">
-          <label for="card-number">Card Number</label>
-          <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9\s]{13,19}" />
-
-          <label for="card-expiry">Expiry Date (MM/YY)</label>
-          <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" />
-
-          <label for="card-cvc">CVC</label>
-          <input type="text" id="card-cvc" placeholder="123" maxlength="3" pattern="[0-9]{3}" />
-        </div>
-
-        <button type="submit">Place Order</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ABOUT & CONTACT -->
-  <section id="about-contact">
-    <div id="about-contact-tabs">
-      <button class="active" data-tab="about">About Us</button>
-      <button data-tab="contact">Contact Us</button>
-    </div>
-    <div id="about-contact-content">
-      <div id="about" style="display:block;">
-        <h2>About Cozyfy</h2>
-        <p>Cozyfy is your streetwear destination, blending comfort with style. Founded in 2020, we believe in quality, authenticity, and fresh vibes. Our designs are made to make you feel great and look even better.</p>
-      </div>
-      <div id="contact" style="display:none;">
-        <h2>Contact Us</h2>
-        <p>Have questions or want to say hi? Reach us at:</p>
-        <ul>
-          <li>Email: support@cozyfy.com</li>
-          <li>Phone: +1 234 567 890</li>
-          <li>Instagram: <a href="https://instagram.com/cozyfy" target="_blank">@cozyfy</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <div class="product-grid" id="product-grid">
+    <!-- Products will be dynamically loaded here -->
+  </div>
 </main>
 
+<!-- Sticky Checkout Panel -->
+<div id="checkout-panel">
+  <h3>Checkout</h3>
+  <form id="checkout-form">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required placeholder="Your name" />
+    <label for="email">Email</label>
+    <input type="email" id="email" required placeholder="example@domain.com" />
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" required placeholder="+962770212121" />
+    <label for="address">Address</label>
+    <input type="text" id="address" required placeholder="Jordan, Amman" />
+    <label for="payment">Payment Method</label>
+    <select id="payment" required>
+      <option value="" disabled selected>Select payment</option>
+      <option value="cod">Cash on Delivery</option>
+      <option value="card">Credit/Debit Card</option>
+      <option value="paypal">PayPal</option>
+    </select>
+    <button type="submit">Place Order</button>
+  </form>
+</div>
+
+<!-- Sticky Cart Panel -->
+<div id="cart-panel">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <div id="total-price">Total: 0 JOD</div>
+</div>
+
+<!-- Footer with About Us and Contact Us -->
+<footer>
+  <div class="tab active" id="tab-home">Home</div>
+  <div class="tab" id="tab-about">About Us</div>
+  <div class="tab" id="tab-contact">Contact Us</div>
+</footer>
+
+<div id="content-home" class="tab-content active">
+  <p>Welcome to Cozyfy, your go-to streetwear brand for fresh, bold vibes and comfy fits. Shop the freshest T-shirts, Hoodies, and Pants!</p>
+</div>
+<div id="content-about" class="tab-content">
+  <p>Cozyfy is your go-to streetwear brand for fresh, bold vibes and comfy fits. Based in Amman, Jordan.</p>
+</div>
+<div id="content-contact" class="tab-content">
+  <p>
+    Email: <a href="mailto:cozyfyjo@gmail.com" style="color:#ff6600;">cozyfyjo@gmail.com</a><br />
+    Phone: +962770212121<br />
+    Address: Jordan, Amman<br />
+    Instagram: <a href="https://instagram.com/cozyfy.jo" target="_blank" rel="noopener" style="color:#ff6600;">@cozyfy.jo</a>
+  </p>
+</div>
+
 <script>
-  // Data for products
+  // Product Data
   const products = {
     tshirts: [
-      {
-        id: 't1',
-        name: 'Cozyfy Black Tee',
-        basePrice: 19.99,
-        img: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      },
-      {
-        id: 't2',
-        name: 'Cozyfy White Tee',
-        basePrice: 19.99,
-        img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      }
+      {id: 'ts1', name: 'Street Classic T-Shirt', basePrice: 15, img: 'https://i.imgur.com/3A8XXfj.png'},
+      {id: 'ts2', name: 'Urban Vibes T-Shirt', basePrice: 15, img: 'https://i.imgur.com/0bLxqX6.png'},
+      {id: 'ts3', name: 'Neon Glow Tee', basePrice: 15, img: 'https://i.imgur.com/Ed5ALyW.png'},
+      {id: 'ts4', name: 'Graffiti Style Tee', basePrice: 15, img: 'https://i.imgur.com/RN2mF7y.png'},
+      {id: 'ts5', name: 'Bold Print Tee', basePrice: 15, img: 'https://i.imgur.com/QVFtFXL.png'},
+      {id: 'ts6', name: 'Chill Logo Tee', basePrice: 15, img: 'https://i.imgur.com/1KtP1kI.png'},
+      {id: 'ts7', name: 'Black & White Tee', basePrice: 15, img: 'https://i.imgur.com/y7IowIN.png'},
+      {id: 'ts8', name: 'Retro Style Tee', basePrice: 15, img: 'https://i.imgur.com/NsE8kaJ.png'},
+      {id: 'ts9', name: 'Abstract Tee', basePrice: 15, img: 'https://i.imgur.com/JQ6zQ36.png'},
+      {id: 'ts10', name: 'Minimalist Tee', basePrice: 15, img: 'https://i.imgur.com/sQZzYvy.png'},
     ],
     hoodies: [
-      {
-        id: 'h1',
-        name: 'Cozyfy Purple Hoodie',
-        basePrice: 35.99,
-        img: 'https://images.unsplash.com/photo-1602810312762-2ec7a8e23d6e?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      },
-      {
-        id: 'h2',
-        name: 'Cozyfy Black Hoodie',
-        basePrice: 35.99,
-        img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      }
+      {id: 'hd1', name: 'Cozy Purple Hoodie', basePrice: 32, img: 'https://i.imgur.com/8oX3b6E.png'},
+      {id: 'hd2', name: 'Blackout Hoodie', basePrice: 32, img: 'https://i.imgur.com/IVrF7aE.png'},
+      {id: 'hd3', name: 'Street Runner Hoodie', basePrice: 32, img: 'https://i.imgur.com/lxA0Eme.png'},
+      {id: 'hd4', name: 'Neon Stripe Hoodie', basePrice: 32, img: 'https://i.imgur.com/LjylR9d.png'},
+      {id: 'hd5', name: 'Graffiti Hoodie', basePrice: 32, img: 'https://i.imgur.com/igjvYus.png'},
+      {id: 'hd6', name: 'Bold Logo Hoodie', basePrice: 32, img: 'https://i.imgur.com/xMdQqlq.png'},
+      {id: 'hd7', name: 'Urban Chill Hoodie', basePrice: 32, img: 'https://i.imgur.com/BB2t7Si.png'},
+      {id: 'hd8', name: 'Retro Hoodie', basePrice: 32, img: 'https://i.imgur.com/XOnBnnD.png'},
+      {id: 'hd9', name: 'Abstract Hoodie', basePrice: 32, img: 'https://i.imgur.com/FvT9zAu.png'},
+      {id: 'hd10', name: 'Minimalist Hoodie', basePrice: 32, img: 'https://i.imgur.com/Y2RkEDm.png'},
     ],
     pants: [
-      {
-        id: 'p1',
-        name: 'Cozyfy Black Pants',
-        basePrice: 24.99,
-        img: 'https://images.unsplash.com/photo-1503342452485-86b7c1380caa?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      },
-      {
-        id: 'p2',
-        name: 'Cozyfy Grey Pants',
-        basePrice: 24.99,
-        img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=250&q=80',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL']
-      }
+      {id: 'pt1', name: 'Streetwear Joggers', basePrice: 20, img: 'https://i.imgur.com/qveUSXZ.png'},
+      {id: 'pt2', name: 'Classic Cargo Pants', basePrice: 20, img: 'https://i.imgur.com/Kx7lOiJ.png'},
+      {id: 'pt3', name: 'Slim Fit Pants', basePrice: 20, img: 'https://i.imgur.com/x5snDE8.png'},
+      {id: 'pt4', name: 'Retro Track Pants', basePrice: 20, img: 'https://i.imgur.com/To0uAYt.png'},
+      {id: 'pt5', name: 'Neon Stripe Pants', basePrice: 20, img: 'https://i.imgur.com/0cM1Jdo.png'},
+      {id: 'pt6', name: 'Urban Pants', basePrice: 20, img: 'https://i.imgur.com/13QCLXj.png'},
+      {id: 'pt7', name: 'Bold Cargo Pants', basePrice: 20, img: 'https://i.imgur.com/dP1Ea8J.png'},
+      {id: 'pt8', name: 'Comfort Fit Pants', basePrice: 20, img: 'https://i.imgur.com/AcJQWqX.png'},
+      {id: 'pt9', name: 'Minimalist Pants', basePrice: 20, img: 'https://i.imgur.com/n7z5nEf.png'},
+      {id: 'pt10', name: 'Chill Joggers', basePrice: 20, img: 'https://i.imgur.com/3v8hs7m.png'},
     ]
+  };
+
+  // Border styles - 10 options with colors for product borders
+  const borderColors = [
+    '#ff6600',
+    '#aa00ff',
+    '#00ffaa',
+    '#ffaa00',
+    '#ff00aa',
+    '#00aaff',
+    '#aa00ff',
+    '#ffaa00',
+    '#ffaa00',
+    '#aaff00'
+  ];
+
+  // Sizes and price increments
+  const sizeIncrements = {
+    'S': 0,
+    'M': 0,
+    'L': 0,
+    'XL': 2,
+    'XXL': 4
   };
 
   // Cart data
   let cart = [];
 
-  // Utility: size price adjustment
-  function getSizePriceAdjustment(size) {
-    switch(size) {
-      case 'XL': return 5.99;
-      case 'XXL': return 10.99;
-      default: return 0;
-    }
+  // Current category
+  let currentCategory = 'tshirts';
+
+  // --- Helper Functions ---
+
+  // Format price with JOD and 2 decimals
+  function formatPrice(price) {
+    return price.toFixed(2) + ' JOD';
   }
 
-  // Render product cards by category
-  function renderProducts(category) {
-    const container = document.getElementById(category + '-list');
-    container.innerHTML = '';
-    products[category].forEach(p => {
-      const price = (p.basePrice).toFixed(2);
+  // Load products for the current category
+  function loadProducts(category) {
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = '';
+    const items = products[category];
+    items.forEach((prod, idx) => {
       const card = document.createElement('div');
       card.className = 'product-card';
-      card.innerHTML = `
-        <img src="${p.img}" alt="${p.name}" />
-        <h3>${p.name}</h3>
-        <select aria-label="Select size for ${p.name}">
-          ${p.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-        </select>
-        <div class="product-price">$${price}</div>
-        <button class="add-to-cart-btn" data-id="${p.id}" data-category="${category}">Add to Cart</button>
-      `;
-      container.appendChild(card);
+      card.dataset.id = prod.id;
+
+      // Create image with first border selected
+      const img = document.createElement('img');
+      img.src = prod.img;
+      img.alt = prod.name;
+      img.style.borderColor = borderColors[0];
+
+      // Border options container
+      const borderContainer = document.createElement('div');
+      borderContainer.className = 'borders-container';
+
+      borderColors.forEach((color, bIdx) => {
+        const borderOption = document.createElement('div');
+        borderOption.className = 'border-option';
+        borderOption.style.borderColor = color;
+        if (bIdx === 0) borderOption.classList.add('selected');
+        borderOption.title = 'Border style ' + (bIdx + 1);
+        borderOption.style.backgroundColor = color;
+        borderOption.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Remove selected from siblings
+          borderContainer.querySelectorAll('.border-option').forEach(opt => opt.classList.remove('selected'));
+          borderOption.classList.add('selected');
+          img.style.borderColor = color;
+        });
+        borderContainer.appendChild(borderOption);
+      });
+
+      // Product name & price
+      const nameEl = document.createElement('div');
+      nameEl.className = 'product-name';
+      nameEl.textContent = prod.name;
+
+      const priceEl = document.createElement('div');
+      priceEl.className = 'product-price';
+      priceEl.textContent = formatPrice(prod.basePrice);
+
+      // Size selector
+      const sizeSelect = document.createElement('select');
+      sizeSelect.className = 'size-select';
+      ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
+        const option = document.createElement('option');
+        option.value = size;
+        option.textContent = size + (sizeIncrements[size] > 0 ? ` (+${sizeIncrements[size]} JOD)` : '');
+        sizeSelect.appendChild(option);
+      });
+
+      // Update price when size changes
+      sizeSelect.addEventListener('change', () => {
+        const base = prod.basePrice;
+        const incr = sizeIncrements[sizeSelect.value] || 0;
+        priceEl.textContent = formatPrice(base + incr);
+      });
+
+      // Add to cart button
+      const addBtn = document.createElement('button');
+      addBtn.className = 'add-cart-btn';
+      addBtn.textContent = 'Add to Cart';
+
+      addBtn.addEventListener('click', () => {
+        addToCart(prod, sizeSelect.value);
+      });
+
+      // Assemble card
+      card.appendChild(img);
+      card.appendChild(borderContainer);
+      card.appendChild(nameEl);
+      card.appendChild(priceEl);
+      card.appendChild(sizeSelect);
+      card.appendChild(addBtn);
+
+      grid.appendChild(card);
     });
   }
 
-  // Render all product categories on page load
-  ['tshirts','hoodies','pants'].forEach(renderProducts);
+  // Add product to cart
+  function addToCart(product, size) {
+    // Check if item already in cart with same size
+    const existingIndex = cart.findIndex(
+      item => item.id === product.id && item.size === size
+    );
+    if (existingIndex > -1) {
+      cart[existingIndex].qty++;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        basePrice: product.basePrice,
+        size: size,
+        qty: 1
+      });
+    }
+    updateCartUI();
+  }
 
-  // Navigation buttons handler
-  const navButtons = document.querySelectorAll('nav button, #home .btn-shop');
-  navButtons.forEach(btn => {
-    btn.addEventListener('click', e => {
-      const target = btn.getAttribute('data-target');
-      if(!target) return;
-      showSection(target);
-    });
-  });
-
-  // Show section and update nav active state
-  function showSection(id) {
-    document.querySelectorAll('main section').forEach(sec => {
-      sec.classList.toggle('active', sec.id === id);
-    });
-    // nav buttons
-    document.querySelectorAll('nav button').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-target') === id);
-    });
-    if (id === 'cart' || id === 'checkout') {
+  // Remove or reduce quantity from cart
+  function removeFromCart(id, size) {
+    const idx = cart.findIndex(item => item.id === id && item.size === size);
+    if (idx > -1) {
+      if (cart[idx].qty > 1) {
+        cart[idx].qty--;
+      } else {
+        cart.splice(idx, 1);
+      }
       updateCartUI();
     }
   }
 
-  // Add to Cart logic
-  document.body.addEventListener('click', e => {
-    if (e.target.classList.contains('add-to-cart-btn')) {
-      const id = e.target.getAttribute('data-id');
-      const category = e.target.getAttribute('data-category');
-      const card = e.target.closest('.product-card');
-      const sizeSelect = card.querySelector('select');
-      const size = sizeSelect.value;
-
-      const product = products[category].find(p => p.id === id);
-      if(!product) return;
-
-      // Check if item with same id+size exists - increment qty else add new
-      const existingIndex = cart.findIndex(item => item.id === id && item.size === size);
-      if(existingIndex >= 0) {
-        cart[existingIndex].quantity++;
-      } else {
-        cart.push({
-          id: id,
-          category: category,
-          name: product.name,
-          basePrice: product.basePrice,
-          size: size,
-          quantity: 1
-        });
-      }
-      updateCartCount();
-      alert(`${product.name} (${size}) added to cart!`);
-    }
-  });
-
-  // Update cart count in nav
-  function updateCartCount() {
-    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-    document.getElementById('cart-count').textContent = count;
+  // Calculate total price
+  function calculateTotal() {
+    let total = 0;
+    cart.forEach(item => {
+      const incr = sizeIncrements[item.size] || 0;
+      total += (item.basePrice + incr) * item.qty;
+    });
+    return total;
   }
 
   // Update Cart UI
   function updateCartUI() {
     const container = document.getElementById('cart-items');
     container.innerHTML = '';
-    if(cart.length === 0) {
-      container.innerHTML = '<p>Your cart is empty.</p>';
-      document.getElementById('cart-total').textContent = 'Total: $0.00';
+    if (cart.length === 0) {
+      container.textContent = 'Cart is empty.';
+      document.getElementById('total-price').textContent = 'Total: 0 JOD';
       return;
     }
-    cart.forEach((item, index) => {
-      const priceAdj = getSizePriceAdjustment(item.size);
-      const itemPrice = (item.basePrice + priceAdj) * item.quantity;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-size">Size: ${item.size}</div>
-        </div>
-        <div>
-          <button class="cart-btn" data-action="dec" data-index="${index}">-</button>
-          <input type="number" min="1" class="cart-item-qty" data-index="${index}" value="${item.quantity}" aria-label="Quantity for ${item.name}" />
-          <button class="cart-btn" data-action="inc" data-index="${index}">+</button>
-        </div>
-        <div class="cart-item-price">$${itemPrice.toFixed(2)}</div>
-        <button class="cart-btn" data-action="remove" data-index="${index}" aria-label="Remove ${item.name} from cart">&times;</button>
-      `;
-      container.appendChild(div);
-    });
+    cart.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
 
-    // Total
-    const total = cart.reduce((acc, item) => {
-      const adj = getSizePriceAdjustment(item.size);
-      return acc + (item.basePrice + adj) * item.quantity;
-    }, 0);
-    document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = `${item.name} (${item.size}) x${item.qty}`;
+      itemDiv.appendChild(nameSpan);
+
+      const priceSpan = document.createElement('span');
+      const incr = sizeIncrements[item.size] || 0;
+      priceSpan.textContent = formatPrice((item.basePrice + incr) * item.qty);
+      itemDiv.appendChild(priceSpan);
+
+      // Remove button
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-cart-btn';
+      removeBtn.textContent = '−';
+      removeBtn.addEventListener('click', () => removeFromCart(item.id, item.size));
+      itemDiv.appendChild(removeBtn);
+
+      container.appendChild(itemDiv);
+    });
+    document.getElementById('total-price').textContent = 'Total: ' + formatPrice(calculateTotal());
   }
 
-  // Cart buttons events (increment, decrement, remove)
-  document.getElementById('cart-items').addEventListener('click', e => {
-    if(e.target.classList.contains('cart-btn')) {
-      const action = e.target.getAttribute('data-action');
-      const idx = Number(e.target.getAttribute('data-index'));
-      if (action === 'inc') {
-        cart[idx].quantity++;
-      } else if(action === 'dec') {
-        if(cart[idx].quantity > 1) cart[idx].quantity--;
-      } else if(action === 'remove') {
-        cart.splice(idx, 1);
-      }
-      updateCartCount();
-      updateCartUI();
-    }
+  // Category tab switching
+  document.querySelectorAll('.category-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.category-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      currentCategory = link.dataset.cat;
+      loadProducts(currentCategory);
+    });
   });
 
-  // Quantity input change
-  document.getElementById('cart-items').addEventListener('input', e => {
-    if(e.target.classList.contains('cart-item-qty')) {
-      const idx = Number(e.target.getAttribute('data-index'));
-      let val = parseInt(e.target.value);
-      if(isNaN(val) || val < 1) val = 1;
-      cart[idx].quantity = val;
-      updateCartCount();
-      updateCartUI();
-    }
+  // Tabs in footer
+  document.querySelectorAll('footer .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('footer .tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const id = tab.id.replace('tab-', 'content-');
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    });
   });
 
-  // Checkout form logic
-  const paymentSelect = document.getElementById('payment-method');
-  const cardDetailsDiv = document.getElementById('card-details');
-  paymentSelect.addEventListener('change', e => {
-    if(e.target.value === 'card') {
-      cardDetailsDiv.style.display = 'block';
-      // make card inputs required
-      document.getElementById('card-number').required = true;
-      document.getElementById('card-expiry').required = true;
-      document.getElementById('card-cvc').required = true;
-    } else {
-      cardDetailsDiv.style.display = 'none';
-      // remove required
-      document.getElementById('card-number').required = false;
-      document.getElementById('card-expiry').required = false;
-      document.getElementById('card-cvc').required = false;
-    }
-  });
-
-  // Checkout submit handler
-  document.getElementById('checkout-form').addEventListener('submit', e => {
+  // Checkout form submission
+  document.getElementById('checkout-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    if(cart.length === 0) {
-      alert('Your cart is empty! Add some products before checkout.');
-      showSection('tshirts');
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
       return;
     }
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
-    const paymentMethod = document.getElementById('payment-method').value;
+    const payment = document.getElementById('payment').value;
 
-    if(!name || !email || !address || !paymentMethod) {
-      alert('Please fill all required fields.');
+    // Basic validation
+    if (!name || !email || !phone || !address || !payment) {
+      alert('Please fill all fields.');
       return;
     }
 
-    if(paymentMethod === 'card') {
-      const cardNum = document.getElementById('card-number').value.trim();
-      const expiry = document.getElementById('card-expiry').value.trim();
-      const cvc = document.getElementById('card-cvc').value.trim();
-      if(!cardNum || !expiry || !cvc) {
-        alert('Please fill card details.');
-        return;
-      }
-      // Simple validation could go here
-    }
+    // Simulate order processing
+    alert(`Thank you for your order, ${name}! Total: ${formatPrice(calculateTotal())}`);
 
-    alert(`Thanks for your order, ${name}! We'll process it soon.`);
+    // Clear cart and form
     cart = [];
-    updateCartCount();
-    showSection('home');
+    updateCartUI();
     document.getElementById('checkout-form').reset();
-    cardDetailsDiv.style.display = 'none';
   });
 
-  // About/Contact tabs toggle
-  const aboutContactBtns = document.querySelectorAll('#about-contact-tabs button');
-  aboutContactBtns.forEach(btn => {
-    btn.addEventListener('click', e => {
-      const tab = btn.getAttribute('data-tab');
-      aboutContactBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('#about-contact-content > div').forEach(div => {
-        div.style.display = div.id === tab ? 'block' : 'none';
-      });
-    });
-  });
-
-  // Start on home
-  showSection('home');
-
+  // Initial load
+  loadProducts(currentCategory);
+  updateCartUI();
 </script>
 
 </body>
 </html>
+
 
