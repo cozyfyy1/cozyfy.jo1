@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cozyfy - Streetwear Vibes</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
+    /* Neon theme styling */
     * {
       margin: 0;
       padding: 0;
@@ -37,15 +39,14 @@
       font-weight: 900;
     }
 
-    nav.categories {
+    .categories {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
-      margin-bottom: 30px;
     }
 
-    nav.categories a {
+    .categories a {
       background: #aa00ff;
       color: #121212;
       padding: 14px 30px;
@@ -53,17 +54,16 @@
       border-radius: 30px;
       font-weight: 700;
       font-size: 18px;
-      box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff, 0 0 20px #aa00ff;
+      box-shadow: 0 0 5px #aa00ff, 0 0 15px #aa00ff;
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      cursor: pointer;
     }
 
-    nav.categories a:hover {
+    .categories a:hover {
       background: #ff6600;
       color: #fff;
-      box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600;
+      box-shadow: 0 0 8px #ff6600, 0 0 20px #ff6600;
       transform: scale(1.1);
     }
 
@@ -72,44 +72,12 @@
       background: linear-gradient(135deg, #1f1f1f, #121212);
       padding: 70px 20px;
       text-align: center;
-      box-shadow: inset 0 0 40px #aa00ff;
-    }
-
-    .hero p {
-      font-size: 26px;
-      max-width: 650px;
-      margin: 0 auto 40px auto;
-      color: #eee;
-      text-shadow: 0 0 6px #aa00ff;
-      font-weight: 600;
-    }
-
-    .btn {
-      background-color: #ff6600;
-      color: white;
-      padding: 15px 40px;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 20px;
-      border-radius: 50px;
-      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      display: inline-block;
-    }
-
-    .btn:hover {
-      background-color: #aa00ff;
-      color: #121212;
-      box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
-      transform: scale(1.05);
     }
 
     .product-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      margin-top: 30px;
       justify-content: center;
     }
 
@@ -119,22 +87,7 @@
       padding: 20px;
       border-radius: 15px;
       width: 250px;
-      text-align: left;
-      box-shadow:
-        0 0 12px #ff660088,
-        0 0 18px #aa00ff66,
-        inset 0 0 10px #000;
-      transition: 0.3s ease;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .product-card:hover {
-      box-shadow:
-        0 0 18px #ff6600,
-        0 0 24px #aa00ff,
-        inset 0 0 12px #fff;
-      transform: scale(1.03);
+      box-shadow: 0 0 18px #ff6600, 0 0 24px #aa00ff;
     }
 
     .product-card img {
@@ -145,201 +98,97 @@
       box-shadow: 0 0 15px #ffffffcc;
     }
 
-    .product-card select {
+    .product-card select, input {
       width: 100%;
       margin-top: 8px;
-      padding: 5px;
+      padding: 8px;
       border-radius: 5px;
       background: #333;
       color: #fff;
       border: 1px solid #555;
-      font-size: 14px;
     }
 
     .product-price {
       margin-top: 10px;
       font-weight: bold;
       color: #aa00ff;
-      font-size: 18px;
     }
 
-    /* About & Contact at page bottom */
-    footer {
-      background: #1f1f1f;
-      padding: 40px 20px;
-      text-align: center;
-      color: #ddd;
-      border-top: 3px solid #ff6600;
-      box-shadow: 0 0 15px #aa00ff;
-      margin-top: 40px;
-      font-size: 16px;
-    }
-
-    footer a {
-      color: #ff6600;
-      text-decoration: none;
-      font-weight: 700;
-      margin: 0 10px;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: #aa00ff;
-    }
-
-    /* Checkout form styles */
-    #checkout {
-      max-width: 600px;
-      margin: 60px auto;
+    form {
       background: #1a1a1a;
-      border-radius: 15px;
-      padding: 30px 40px;
-      box-shadow: 0 0 25px #aa00ff;
-      color: #eee;
-      text-align: left;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 50px auto;
+      max-width: 400px;
+      box-shadow: 0 0 20px #aa00ff99;
     }
 
-    #checkout h2 {
-      margin-bottom: 25px;
-      color: #ff6600;
-      text-shadow: 0 0 8px #ff6600, 0 0 20px #aa00ff;
-      font-weight: 900;
-      font-size: 30px;
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .payment-fields {
+      display: none;
+      margin-top: 10px;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
       text-align: center;
+      color: #aaa;
+      background: #1f1f1f;
     }
 
-    #checkout label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 16px;
+    .checkout-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff6600;
+      padding: 10px 20px;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #ff6600;
+      text-decoration: none;
     }
 
-    #checkout input[type="text"],
-    #checkout input[type="email"],
-    #checkout input[type="month"],
-    #checkout textarea,
-    #checkout select {
-      width: 100%;
-      padding: 8px 12px;
-      margin-top: 5px;
-      border-radius: 7px;
-      border: none;
-      background: #333;
-      color: #eee;
-      font-size: 16px;
-      box-shadow: inset 0 0 6px #000;
-      resize: vertical;
+    .checkout-btn:hover {
+      background: #aa00ff;
+      box-shadow: 0 0 15px #aa00ff;
     }
 
-    #checkout textarea {
-      height: 80px;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    #checkout button[type="submit"] {
-      margin-top: 25px;
-      background-color: #ff6600;
-      color: white;
-      font-weight: 800;
-      font-size: 20px;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 50px;
-      box-shadow: 0 0 10px #ff6600, 0 0 25px #ff6600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: block;
-      width: 100%;
-    }
-    #checkout button[type="submit"]:hover {
-      background-color: #aa00ff;
-      color: #121212;
-      box-shadow: 0 0 12px #aa00ff, 0 0 30px #aa00ff;
-      transform: scale(1.05);
-    }
-
-    /* Payment method logos in select */
-    #paymentMethod option.visa {
-      background: url('https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png') no-repeat left center;
-      background-size: 40px 20px;
-      padding-left: 50px;
-      color: #000;
-    }
-    #paymentMethod option.paypal {
-      background: url('https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg') no-repeat left center;
-      background-size: 40px 20px;
-      padding-left: 50px;
-      color: #000;
-    }
-
-    /* Visa and Paypal logos next to labels */
     .payment-logo {
       height: 20px;
-      vertical-align: middle;
-      margin-left: 8px;
-      filter: drop-shadow(0 0 1px #000);
-    }
-
-    /* Show/hide payment detail sections */
-    .payment-details {
-      margin-top: 15px;
-      padding: 15px;
-      border: 2px solid #aa00ff;
-      border-radius: 10px;
-      background: #222;
-    }
-
-    /* Responsive */
-    @media (max-width: 700px) {
-      .product-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-      #checkout {
-        margin: 30px 10px;
-        padding: 20px;
-      }
-      header h1 {
-        font-size: 32px;
-      }
-      nav.categories a {
-        font-size: 16px;
-        padding: 12px 24px;
-      }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Welcome to Cozyfy</h1>
-    <nav class="categories">
-      <a href="#" data-section="tshirts">T-Shirts</a>
-      <a href="#" data-section="hoodies">Hoodies</a>
-      <a href="#" data-section="pants">Pants</a>
-      <a href="#" data-section="aboutus">About Us</a>
-      <a href="#" data-section="contactus">Contact Us</a>
-      <a href="#" data-section="checkout">Checkout</a>
-    </nav>
+    <div class="categories">
+      <a href="#tshirts">T-Shirts</a>
+      <a href="#hoodies">Hoodies</a>
+      <a href="#pants">Pants</a>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <p>Your style starts here. Cozy & Trendy streetwear made just for you.</p>
-      <button class="btn" onclick="showSection('tshirts')">Shop Now</button>
-    </section>
+  <a href="#checkout" class="checkout-btn">Checkout</a>
 
-    <section id="tshirts" class="content-section" style="display:none;">
+  <main>
+    <section id="tshirts">
       <h2>T-Shirts</h2>
       <div class="product-grid">
         <div class="product-card">
-          <img src="images/tshirt1.jpg" alt="T-Shirt 1" />
-          <label>Color:</label>
+          <img src="images/tshirt1.jpg" alt="T-Shirt 1">
           <select>
             <option>Black</option>
             <option>White</option>
             <option>Pink</option>
           </select>
-          <label>Size:</label>
           <select onchange="updatePrice(this, 15)">
             <option value="S">Small</option>
             <option value="M">Medium</option>
@@ -349,296 +198,120 @@
           </select>
           <div class="product-price">Price: <span>15</span> JOD</div>
         </div>
-        <div class="product-card">
-          <img src="images/tshirt2.jpg" alt="T-Shirt 2" />
-          <label>Color:</label>
-          <select>
-            <option>Blue</option>
-            <option>Gray</option>
-            <option>Red</option>
-          </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 20)">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">XL (+3 JOD)</option>
-            <option value="XXL">XXL (+5 JOD)</option>
-          </select>
-          <div class="product-price">Price: <span>20</span> JOD</div>
-        </div>
       </div>
     </section>
 
-    <section id="hoodies" class="content-section" style="display:none;">
+    <section id="hoodies">
       <h2>Hoodies</h2>
       <div class="product-grid">
         <div class="product-card">
-          <img src="images/hoodie1.jpg" alt="Hoodie 1" />
-          <label>Color:</label>
+          <img src="images/hoodie1.jpg" alt="Hoodie 1">
           <select>
             <option>Black</option>
-            <option>White</option>
             <option>Gray</option>
+            <option>Beige</option>
           </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 35)">
+          <select onchange="updatePrice(this, 32)">
             <option value="S">Small</option>
             <option value="M">Medium</option>
             <option value="L">Large</option>
-            <option value="XL">XL (+5 JOD)</option>
-            <option value="XXL">XXL (+8 JOD)</option>
+            <option value="XL">XL (+2 JOD)</option>
+            <option value="XXL">XXL (+4 JOD)</option>
           </select>
-          <div class="product-price">Price: <span>35</span> JOD</div>
-        </div>
-        <div class="product-card">
-          <img src="images/hoodie2.jpg" alt="Hoodie 2" />
-          <label>Color:</label>
-          <select>
-            <option>Red</option>
-            <option>Blue</option>
-            <option>Green</option>
-          </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 40)">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">XL (+6 JOD)</option>
-            <option value="XXL">XXL (+10 JOD)</option>
-          </select>
-          <div class="product-price">Price: <span>40</span> JOD</div>
+          <div class="product-price">Price: <span>32</span> JOD</div>
         </div>
       </div>
     </section>
 
-    <section id="pants" class="content-section" style="display:none;">
+    <section id="pants">
       <h2>Pants</h2>
       <div class="product-grid">
         <div class="product-card">
-          <img src="images/pants1.jpg" alt="Pants 1" />
-          <label>Color:</label>
+          <img src="images/pants1.jpg" alt="Pants 1">
           <select>
             <option>Black</option>
-            <option>Dark Gray</option>
-            <option>Light Gray</option>
+            <option>Gray</option>
+            <option>Olive</option>
           </select>
-          <label>Size:</label>
-          <select onchange="updatePrice(this, 30)">
+          <select onchange="updatePrice(this, 28)">
             <option value="S">Small</option>
             <option value="M">Medium</option>
             <option value="L">Large</option>
-            <option value="XL">XL (+4 JOD)</option>
-            <option value="XXL">XXL (+7 JOD)</option>
+            <option value="XL">XL (+2 JOD)</option>
+            <option value="XXL">XXL (+4 JOD)</option>
           </select>
-          <div class="product-price">Price: <span>30</span> JOD</div>
+          <div class="product-price">Price: <span>28</span> JOD</div>
         </div>
       </div>
     </section>
 
-    <section id="aboutus" class="content-section" style="display:none;">
-      <h2>About Us</h2>
-      <p style="max-width: 700px; margin: 0 auto; padding: 10px; font-size: 18px; color: #ccc;">
-        Cozyfy is a streetwear brand dedicated to bringing you stylish, comfortable, and affordable clothing. We blend urban vibes with quality craftsmanship to keep you cozy and trendy. Founded in 2020, we believe in self-expression through fashion and creating a community that embraces individuality.
-      </p>
-    </section>
-
-    <section id="contactus" class="content-section" style="display:none;">
-      <h2>Contact Us</h2>
-      <p style="max-width: 700px; margin: 0 auto; padding: 10px; font-size: 18px; color: #ccc;">
-        Got questions or feedback? We'd love to hear from you! Reach out to us at:
-        <br /><br />
-        <strong>Email:</strong> support@cozyfy.com
-        <br />
-        <strong>Phone:</strong> +962 79 123 4567
-        <br />
-        <strong>Address:</strong> 123 Streetwear Ave, Amman, Jordan
-      </p>
-    </section>
-
-    <section id="checkout" class="content-section" style="display:none;">
+    <section id="checkout">
       <h2>Checkout</h2>
-      <form id="checkoutForm">
-        <label for="fullName">Full Name *</label>
-        <input type="text" id="fullName" name="fullName" required />
-
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="address">Address *</label>
-        <textarea id="address" name="address" required></textarea>
-
-        <label for="paymentMethod">Payment Method *</label>
-        <select id="paymentMethod" name="paymentMethod" required>
-          <option value="">Select payment method</option>
-          <option value="Cash on Delivery">Cash on Delivery</option>
-          <option value="Visa">Visa &#x1F4B3; <!-- credit card emoji --></option>
-          <option value="Paypal">Paypal &#x1F4B8; <!-- money with wings emoji --></option>
-        </select>
-
-        <div id="visaDetails" class="payment-details" style="display:none;">
-          <label for="cardHolderName">Card Holder Name *</label>
-          <input type="text" id="cardHolderName" name="cardHolderName" />
-
-          <label for="cardNumber">Card Number *</label>
-          <input type="text" id="cardNumber" name="cardNumber" maxlength="16" pattern="\d{16}" placeholder="1234 5678 9012 3456" />
-
-          <label for="ccv">CCV *</label>
-          <input type="text" id="ccv" name="ccv" maxlength="4" pattern="\d{3,4}" placeholder="123" />
-
-          <label for="expiryDate">Expiry Date *</label>
-          <input type="month" id="expiryDate" name="expiryDate" />
+      <form onsubmit="sendOrderEmail(); return false;">
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="text" name="address" placeholder="Full Address" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        
+        <div class="payment-option">
+          <input type="radio" name="payment" value="Cash" checked onclick="togglePaymentFields('none')"> Cash on Delivery
+        </div>
+        <div class="payment-option">
+          <input type="radio" name="payment" value="Visa" onclick="togglePaymentFields('visa')"> 
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" class="payment-logo" alt="Visa" />
+        </div>
+        <div id="visa-fields" class="payment-fields">
+          <input type="text" placeholder="Card Holder Name" />
+          <input type="text" placeholder="Card Number" />
+          <input type="text" placeholder="CCV" />
+          <input type="text" placeholder="Expiry Date (MM/YY)" />
         </div>
 
-        <div id="paypalDetails" class="payment-details" style="display:none;">
-          <label for="paypalEmail">Paypal Email *</label>
-          <input type="email" id="paypalEmail" name="paypalEmail" />
+        <div class="payment-option">
+          <input type="radio" name="payment" value="PayPal" onclick="togglePaymentFields('paypal')"> 
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="payment-logo" alt="PayPal" />
+        </div>
+        <div id="paypal-fields" class="payment-fields">
+          <input type="email" placeholder="PayPal Email" />
         </div>
 
-        <button type="submit">Send Order</button>
+        <button type="submit">Place Order</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <a href="#" onclick="showSection('aboutus')">About Us</a> |
-    <a href="#" onclick="showSection('contactus')">Contact Us</a>
+    <p>© 2025 Cozyfy. Follow us on <a href="https://instagram.com/cozyfy.jo" target="_blank" style="color:#ff6600;">@cozyfy.jo</a></p>
   </footer>
 
   <script>
-    // Show/hide sections by clicking nav links or buttons
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('.content-section');
-      sections.forEach(sec => {
-        sec.style.display = sec.id === sectionId ? 'block' : 'none';
-      });
-      // Scroll top on section change
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    emailjs.init('QvKJs9UE3rvG9luU3');
+
+    function togglePaymentFields(type) {
+      document.getElementById('visa-fields').style.display = type === 'visa' ? 'block' : 'none';
+      document.getElementById('paypal-fields').style.display = type === 'paypal' ? 'block' : 'none';
     }
 
-    // Show Hero on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      showSection('tshirts');
-    });
-
-    // Nav category buttons
-    const categoryLinks = document.querySelectorAll('nav.categories a');
-    categoryLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.getAttribute('data-section');
-        if (target === 'checkout') {
-          showSection('checkout');
-        } else if (target === 'aboutus' || target === 'contactus') {
-          showSection(target);
-        } else {
-          showSection(target);
-        }
-      });
-    });
-
-    // Update product price with size adjustments
-    function updatePrice(selectElem, basePrice) {
-      const card = selectElem.closest('.product-card');
-      const priceDisplay = card.querySelector('.product-price span');
-
-      let sizeExtra = 0;
-      if (selectElem.value.startsWith('XL')) sizeExtra = parseInt(selectElem.value.split('+')[1]) || 0;
-      else if (selectElem.value.startsWith('XXL')) sizeExtra = parseInt(selectElem.value.split('+')[1]) || 0;
-
-      // But your option values don't have + numbers, so parse differently:
-      // We'll read the text of the selected option and extract the extra JOD if present
-      const optionText = selectElem.options[selectElem.selectedIndex].text;
-      const match = optionText.match(/\+\d+/);
-      if (match) {
-        sizeExtra = parseInt(match[0].replace('+', ''));
-      }
-
-      priceDisplay.textContent = basePrice + sizeExtra;
+    function updatePrice(selectEl, basePrice) {
+      const size = selectEl.value;
+      let price = basePrice;
+      if (size === 'XL') price += 2;
+      if (size === 'XXL') price += 4;
+      selectEl.parentElement.querySelector('.product-price span').textContent = price;
     }
 
-    // Payment method toggle
-    const paymentMethodSelect = document.getElementById('paymentMethod');
-    const visaDetails = document.getElementById('visaDetails');
-    const paypalDetails = document.getElementById('paypalDetails');
+    function sendOrderEmail() {
+      const form = document.querySelector('form');
+      const templateParams = {
+        name: form.name.value,
+        address: form.address.value,
+        phone: form.phone.value,
+        payment: form.payment.value,
+      };
 
-    function togglePaymentDetails() {
-      const selected = paymentMethodSelect.value;
-
-      if (selected === 'Visa') {
-        visaDetails.style.display = 'block';
-        paypalDetails.style.display = 'none';
-
-        visaDetails.querySelectorAll('input').forEach(input => input.required = true);
-        paypalDetails.querySelectorAll('input').forEach(input => input.required = false);
-
-      } else if (selected === 'Paypal') {
-        visaDetails.style.display = 'none';
-        paypalDetails.style.display = 'block';
-
-        paypalDetails.querySelectorAll('input').forEach(input => input.required = true);
-        visaDetails.querySelectorAll('input').forEach(input => input.required = false);
-
-      } else {
-        visaDetails.style.display = 'none';
-        paypalDetails.style.display = 'none';
-
-        visaDetails.querySelectorAll('input').forEach(input => input.required = false);
-        paypalDetails.querySelectorAll('input').forEach(input => input.required = false);
-      }
+      emailjs.send('service_sn41di8', 'template_l5ipikr', templateParams)
+        .then(() => alert('Order sent successfully!'))
+        .catch(error => alert('Failed to send order: ' + error));
     }
-    paymentMethodSelect.addEventListener('change', togglePaymentDetails);
-    togglePaymentDetails();
-
-    // Handle checkout form submit
-    const checkoutForm = document.getElementById('checkoutForm');
-    checkoutForm.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const form = e.target;
-      const fullName = form.fullName.value.trim();
-      const email = form.email.value.trim();
-      const address = form.address.value.trim();
-      const paymentMethod = form.paymentMethod.value;
-
-      if (!fullName || !email || !address || !paymentMethod) {
-        alert('Please fill all required fields.');
-        return;
-      }
-
-      // Validate payment-specific fields
-      if (paymentMethod === 'Visa') {
-        if (!form.cardHolderName.value.trim() ||
-          !form.cardNumber.value.trim() ||
-          !form.ccv.value.trim() ||
-          !form.expiryDate.value) {
-          alert('Please fill all Visa card details.');
-          return;
-        }
-        // Optionally, add pattern validation here...
-      }
-
-      if (paymentMethod === 'Paypal') {
-        if (!form.paypalEmail.value.trim()) {
-          alert('Please enter your Paypal email.');
-          return;
-        }
-      }
-
-      // Build order summary
-      let orderSummary = `Order Summary:\nName: ${fullName}\nEmail: ${email}\nAddress: ${address}\nPayment Method: ${paymentMethod}\n`;
-
-      if (paymentMethod === 'Visa') {
-        orderSummary += `Card Holder: ${form.cardHolderName.value.trim()}\nCard Number: ${form.cardNumber.value.trim()}\nCCV: ${form.ccv.value.trim()}\nExpiry: ${form.expiryDate.value}\n`;
-      } else if (paymentMethod === 'Paypal') {
-        orderSummary += `Paypal Email: ${form.paypalEmail.value.trim()}\n`;
-      }
-
-      alert(orderSummary + '\nThank you for your order!');
-      form.reset();
-      showSection('tshirts');
-      togglePaymentDetails();
-    });
   </script>
 </body>
 </html>
